@@ -7,6 +7,7 @@ interface CartItem {
   image: string;
   quantity: number;
   maxStock: number;
+  requiresCustomerImage?: boolean;
 }
 
 interface CartStore {
@@ -60,6 +61,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
             image: product.images[0],
             maxStock: product.stockQuantity,
             quantity: 1,
+            requiresCustomerImage: product.requiresCustomerImage || false,
           },
         ],
         isCartOpen: true,

@@ -23,6 +23,7 @@ export default function AddProductPage() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [imageAlt, setImageAlt] = useState("");
+  const [requiresCustomerImage, setRequiresCustomerImage] = useState(false);
 
   // Categories list from DB
   const [categories, setCategories] = useState<any[]>([]);
@@ -113,6 +114,7 @@ export default function AddProductPage() {
         category: category,
         description: description, // Saved to DB
         imageAlt: imageAlt, // Saved to DB for image SEO!
+        requiresCustomerImage: requiresCustomerImage,
         images: [imageUrl], 
         isActive: true,
         createdAt: new Date(),
@@ -127,6 +129,7 @@ export default function AddProductPage() {
       setImageUrl("");
       setDescription("");
       setImageAlt("");
+      setRequiresCustomerImage(false);
       router.push("/products"); // Push back to product overview list
     } catch (error) {
       console.error("Error adding product: ", error);
@@ -282,6 +285,21 @@ export default function AddProductPage() {
           ) : (
             <ImageUpload onUpload={(url) => setImageUrl(url)} />
           )}
+        </div>
+
+        {/* Product Settings */}
+        <div className="flex items-center gap-3 p-4 border rounded-xl bg-slate-50">
+          <input
+            type="checkbox"
+            id="requiresImage"
+            checked={requiresCustomerImage}
+            onChange={(e) => setRequiresCustomerImage(e.target.checked)}
+            className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-slate-300 cursor-pointer"
+          />
+          <div>
+            <label htmlFor="requiresImage" className="font-bold text-sm text-slate-900 cursor-pointer">Requires Customer Images</label>
+            <p className="text-[10px] text-slate-500">Check this if the customer needs to upload reference pictures (e.g. for custom jewelry) during checkout.</p>
+          </div>
         </div>
 
         {/* Submit */}

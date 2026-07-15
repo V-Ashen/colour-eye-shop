@@ -7,7 +7,8 @@ import { useAuthStore } from "@/store/authStore";
 import { db, auth } from "@/lib/firebase"; // Make sure auth is imported!
 import { collection, doc, runTransaction, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth"; // For inline registration
-import { Landmark, CreditCard, Banknote, Upload } from "lucide-react";
+import { Landmark, CreditCard, Banknote, Upload, ImagePlus, X } from "lucide-react";
+import { CldUploadWidget } from "next-cloudinary";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -34,6 +35,10 @@ export default function CheckoutPage() {
   const [cardExpiry, setCardExpiry] = useState("");
   const [cardCvv, setCardCvv] = useState("");
   const [cardName, setCardName] = useState("");
+
+  // --- Customer Images State ---
+  const needsCustomerImages = cart.some(item => item.requiresCustomerImage);
+  const [customerImages, setCustomerImages] = useState<string[]>([]);
 
   // Auto-fill email if user is already logged in
   useEffect(() => {
@@ -62,6 +67,11 @@ export default function CheckoutPage() {
     // Payment Validation
     if (paymentMethod === "bank" && !receiptFile) return alert("Please upload your bank receipt slip!");
     if (paymentMethod === "card" && (!cardNumber || !cardExpiry || !cardCvv || !cardName)) return alert("Please fill in all credit card details!");
+
+    // Customer Images Validation
+    if (needsCustomerImages && customerImages.length === 0) {
+      return alert("Some items in your cart require reference pictures. Please upload them in Step 2!");
+    }
 
     setLoading(true);
 
@@ -125,6 +135,7 @@ export default function CheckoutPage() {
           customerPhone: phone,
           shippingAddress: address,
           items: cart,
+          customerImages: needsCustomerImages ? customerImages : [], // Include uploaded images
           subtotalAmount: cartTotal(),
           deliveryCharge: deliveryCharge(),
           totalAmount: grandTotal(),
@@ -241,9 +252,54 @@ export default function CheckoutPage() {
               </form>
             </div>
 
-            {/* Step 2: Payment Selector */}
+            {/* Step 2: Customer Images Upload (Conditional) */}
+            {needsCustomerImages && (
+              <div>
+                <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-1">Step 2</p>
+                <h2 className="text-xl font-semibold text-[var(--foreground)] tracking-wide mb-6" style={{ fontFamily: "var(--font-serif)" }}>Reference Images</h2>
+                <div className="bg-white/5 border border-[var(--border)] rounded-xl p-6">
+                  <p className="text-xs text-[var(--muted)] mb-4">Some products in your cart require custom reference images. Please upload them below.</p>
+                  
+                  <div className="flex flex-wrap gap-4 mb-4">
+                    {customerImages.map((url, idx) => (
+                      <div key={idx} className="relative w-24 h-24 rounded-lg overflow-hidden border border-[var(--border)] group">
+                        <img src={url} alt={`Reference ${idx + 1}`} className="w-full h-full object-cover" />
+                        <button 
+                          type="button"
+                          onClick={() => setCustomerImages(prev => prev.filter((_, i) => i !== idx))}
+                          className="absolute top-1 right-1 bg-black/60 p-1 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  <CldUploadWidget
+                    uploadPreset="accessories_preset"
+                    onSuccess={(result: any) => {
+                      setCustomerImages(prev => [...prev, result.info.secure_url]);
+                    }}
+                  >
+                    {({ open }) => (
+                      <button
+                        type="button"
+                        onClick={() => open()}
+                        className="w-full py-3 px-4 border border-dashed border-[var(--border)] rounded-xl flex items-center justify-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors"
+                      >
+                        <ImagePlus size={18} /> Upload Reference Image
+                      </button>
+                    )}
+                  </CldUploadWidget>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Payment Selector */}
             <div>
-              <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-1">Step 2</p>
+              <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-1">
+                {needsCustomerImages ? "Step 3" : "Step 2"}
+              </p>
               <h2 className="text-xl font-semibold text-[var(--foreground)] tracking-wide mb-6" style={{ fontFamily: "var(--font-serif)" }}>Payment Method</h2>
 
               <div className="grid grid-cols-3 gap-3 mb-6">
@@ -317,7 +373,9 @@ export default function CheckoutPage() {
 
           {/* Right: Order Summary */}
           <div className="glass-glow border border-[var(--border)] rounded-2xl p-8 h-fit">
-            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-1">Step 3</p>
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-1">
+              {needsCustomerImages ? "Step 4" : "Step 3"}
+            </p>
             <h2 className="text-xl font-semibold text-[var(--foreground)] tracking-wide mb-6" style={{ fontFamily: "var(--font-serif)" }}>Order Summary</h2>
 
             <div className="space-y-3 mb-6">

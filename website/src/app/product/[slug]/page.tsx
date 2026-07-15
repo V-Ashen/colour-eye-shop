@@ -15,6 +15,7 @@ interface Product {
   images: string[];
   category?: string;
   description?: string;
+  requiresCustomerImage?: boolean;
 }
 
 function ProductDetailsContent() {

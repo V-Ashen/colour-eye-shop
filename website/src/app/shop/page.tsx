@@ -18,6 +18,7 @@ interface Product {
   images: string[];
   isActive: boolean;
   category: string;
+  requiresCustomerImage?: boolean;
 }
 
 const getFallbackCategory = (name: string): string => {
@@ -74,7 +75,8 @@ export default function ShopPage() {
             stockQuantity: data.stockQuantity,
             images: data.images || [],
             isActive: data.isActive,
-            category: cleanCategory
+            category: cleanCategory,
+            requiresCustomerImage: data.requiresCustomerImage || false
           };
         }).filter(p => p.isActive && p.stockQuantity > 0) as Product[];
         

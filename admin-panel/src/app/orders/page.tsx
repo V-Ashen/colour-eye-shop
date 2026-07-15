@@ -25,6 +25,7 @@ interface Order {
   paymentMethod: string;
   status: string;
   items: OrderItem[];
+  customerImages?: string[];
   createdAt: any;
 }
 
@@ -361,6 +362,28 @@ export default function OrderManagementPage() {
                   </table>
                 </div>
               </div>
+
+              {/* Customer Uploaded Images */}
+              {selectedOrder.customerImages && selectedOrder.customerImages.length > 0 && (
+                <div className="mt-8">
+                  <div className="flex items-center gap-2 mb-4 text-[#1C1C1E]">
+                    <Package size={18} className="text-[#C9A84C]" />
+                    <h3 className="font-bold text-sm uppercase tracking-wider">Customer Provided Images</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-4">
+                    {selectedOrder.customerImages.map((imgUrl, i) => (
+                      <div key={i} className="relative group rounded-xl overflow-hidden border border-[#E0DDD6]">
+                        <img src={imgUrl} alt={`Customer image ${i+1}`} className="h-32 w-32 object-cover bg-[#FAF9F7]" />
+                        <div className="absolute inset-0 bg-[#0B0C10]/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <a href={imgUrl} target="_blank" rel="noopener noreferrer" className="bg-[#C9A84C] text-[#1C1C1E] text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full hover:bg-white transition-colors">
+                            View / Download
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Financial Summary */}
               <div className="mt-6 flex justify-end">
