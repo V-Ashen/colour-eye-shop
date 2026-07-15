@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: any }) {
       <div className="relative w-full aspect-[3/4] bg-white/5 border border-white/5 overflow-hidden mb-3 sm:mb-4 rounded-xl">
         <img
           src={product.images[0] || "/placeholder-image.jpg"}
-          alt={`${product.name} - Accessories by DN`}
+          alt={`${product.name} - Colour Eye`}
           className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
         />
         

@@ -38,7 +38,7 @@ function SuccessContent() {
           Order Confirmed
         </h1>
         <p className="text-sm text-[var(--muted)] mb-8 leading-relaxed">
-          Thank you for shopping with Accessories by DN. We have received your order and are getting it beautifully packaged for you.
+          Thank you for shopping with Colour Eye. We have received your order and are getting it beautifully packaged for you.
         </p>
 
         <div className="bg-white/5 py-6 px-4 rounded-xl border border-[var(--border)] mb-8">

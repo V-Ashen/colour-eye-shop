@@ -1,8 +1,38 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  
+  const [socials, setSocials] = useState({
+    facebook: "https://www.facebook.com/profile.php?id=100090141546352",
+    instagram: "https://www.instagram.com/accessories_by_dn_?igsh=bjNqbDV5MHBIOWlt",
+    tiktok: "https://www.tiktok.com/@dnfashionjewellery25?_r=1&_t=ZS-972Dv3H8MdD"
+  });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, "settings", "global"));
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setSocials(prev => ({
+            facebook: data.facebookUrl || prev.facebook,
+            instagram: data.instagramUrl || prev.instagram,
+            tiktok: data.tiktokUrl || prev.tiktok
+          }));
+        }
+      } catch (err) {
+        console.error("Error fetching global settings:", err);
+      }
+    };
+    fetchSettings();
+  }, []);
 
   return (
     <footer className="bg-[#161921] text-[var(--muted)] py-16 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
@@ -16,7 +46,7 @@ export default function Footer() {
               <div className="w-9 h-9 rounded-full overflow-hidden ring-1 ring-white/10 flex-shrink-0 shadow-[0_0_10px_var(--accent-glow)]">
                 <Image
                   src="/logo.jpg"
-                  alt="Accessories by DN Logo"
+                  alt="Colour Eye Logo"
                   width={36}
                   height={36}
                   className="object-cover w-full h-full"
@@ -26,7 +56,7 @@ export default function Footer() {
                 className="text-[var(--foreground)] text-sm font-semibold tracking-[0.12em] uppercase"
                 style={{ fontFamily: "var(--font-serif)", fontSize: "15px" }}
               >
-                Accessories by DN
+                Colour Eye
               </span>
             </div>
             <p className="text-xs text-[var(--muted)] leading-relaxed max-w-[200px]">
@@ -36,7 +66,7 @@ export default function Footer() {
             {/* Social icons */}
             <div className="flex items-center gap-2 mt-5">
               <a
-                href="https://www.facebook.com/profile.php?id=100090141546352"
+                href={socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -45,7 +75,7 @@ export default function Footer() {
                 <Image src="/icons/facebook.svg" alt="Facebook" width={15} height={15} className="opacity-70 hover:opacity-100" />
               </a>
               <a
-                href="https://www.instagram.com/accessories_by_dn_?igsh=bjNqbDV5MHBIOWlt"
+                href={socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -54,7 +84,7 @@ export default function Footer() {
                 <Image src="/icons/instagram.svg" alt="Instagram" width={15} height={15} className="opacity-70 hover:opacity-100" />
               </a>
               <a
-                href="https://www.tiktok.com/@dnfashionjewellery25?_r=1&_t=ZS-972Dv3H8MdD"
+                href={socials.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
@@ -97,9 +127,9 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {[
-                { label: "Facebook", icon: "/icons/facebook.svg", href: "https://www.facebook.com/profile.php?id=100090141546352" },
-                { label: "Instagram", icon: "/icons/instagram.svg", href: "https://www.instagram.com/accessories_by_dn_?igsh=bjNqbDV5MHBIOWlt" },
-                { label: "TikTok", icon: "/icons/tiktok.svg", href: "https://www.tiktok.com/@dnfashionjewellery25?_r=1&_t=ZS-972Dv3H8MdD" },
+                { label: "Facebook", icon: "/icons/facebook.svg", href: socials.facebook },
+                { label: "Instagram", icon: "/icons/instagram.svg", href: socials.instagram },
+                { label: "TikTok", icon: "/icons/tiktok.svg", href: socials.tiktok },
               ].map(({ label, icon, href }) => (
                 <li key={label}>
                   <a
@@ -143,7 +173,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-[11px] text-[var(--muted)] opacity-70 tracking-wide">
-            &copy; {currentYear} Accessories by DN. All rights reserved.
+            &copy; {currentYear} Colour Eye. All rights reserved.
           </p>
           <p className="text-[11px] text-[var(--muted)] opacity-50 tracking-wide">
             Crafted with care in Sri Lanka

@@ -79,7 +79,7 @@ export default function AboutSection() {
         {/* Story — two columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-12 mb-10">
           <p className="text-sm text-[var(--muted)] leading-relaxed">
-            Accessories by DN was born from a passion for bringing the most elegant,
+            Colour Eye was born from a passion for bringing the most elegant,
             trend-setting fashion jewellery to Sri Lanka. We believe accessories are
             more than additions to an outfit — they are expressions of individuality,
             confidence, and personal style.

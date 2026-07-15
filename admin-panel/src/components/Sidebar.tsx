@@ -14,6 +14,7 @@ import {
   Users, // For Customers
   UserCog, // For Manage Staff
   ShieldAlert, 
+  Settings,
   LogOut,
   Hexagon // Logo icon
 } from "lucide-react";
@@ -57,6 +58,7 @@ export default function Sidebar() {
     { name: "Customers", icon: Users, path: "/users", permission: "view dashboard" }, // New Users Page
     { name: "Manage Staff", icon: UserCog, path: "/manage-staff", permission: "manage staff" },
     { name: "Roles & Perms", icon: ShieldAlert, path: "/roles", permission: "manage roles" },
+    { name: "Settings", icon: Settings, path: "/settings", permission: "manage settings" },
   ];
 
   return (

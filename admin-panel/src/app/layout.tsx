@@ -7,7 +7,7 @@ import Sidebar from "@/components/Sidebar"; // We will create this next
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Admin Panel | Accessories by DN",
+  title: "Admin Panel | Colour Eye",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -38,7 +38,7 @@ export default function AdminLogin() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0-1.1.9-2 2-2s2 .9 2 2v2h-4v-2zM7 21V10a5 5 0 0110 0v11H7z" />
             </svg>
           </div>
-          <h1 className="text-3xl font-light text-white tracking-wide" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>Accessories by DN</h1>
+          <h1 className="text-3xl font-light text-white tracking-wide" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>Colour Eye</h1>
           <p className="text-[#C9A84C] text-xs font-semibold tracking-[0.2em] uppercase mt-2">Admin Portal</p>
         </div>
 

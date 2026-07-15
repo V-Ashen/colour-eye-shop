@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
 
 export const metadata: Metadata = {
-  title: "Accessories by DN",
+  title: "Colour Eye",
   description: "Trendy aesthetic accessories in Sri Lanka.",
 };
 

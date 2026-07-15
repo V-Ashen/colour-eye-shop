@@ -89,7 +89,7 @@ function ProductDetailsContent() {
           <div className="aspect-square bg-black/20 rounded-xl overflow-hidden border border-[var(--border)] relative">
             <img 
               src={product.images[0] || "/placeholder-image.jpg"} 
-              alt={`${product.name} - Premium ${product.category || 'Aesthetic Accessory'} | Accessories by DN`} 
+              alt={`${product.name} - Premium ${product.category || 'Aesthetic Accessory'} | Colour Eye`} 
               className="w-full h-full object-cover"
             />
           </div>

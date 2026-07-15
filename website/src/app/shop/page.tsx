@@ -58,8 +58,6 @@ export default function ShopPage() {
 
         const q = query(
           collection(db, "products"),
-          where("stockQuantity", ">", 0),
-          where("isActive", "==", true),
           orderBy("createdAt", "desc")
         );
         
@@ -69,10 +67,6 @@ export default function ShopPage() {
           const rawCategory = data.category || getFallbackCategory(data.name);
           const cleanCategory = rawCategory.charAt(0).toUpperCase() + rawCategory.slice(1).toLowerCase();
           
-          if (!dbCats.includes(cleanCategory)) {
-            dbCats.push(cleanCategory);
-          }
-
           return {
             id: doc.id,
             name: data.name,
@@ -82,7 +76,14 @@ export default function ShopPage() {
             isActive: data.isActive,
             category: cleanCategory
           };
-        }) as Product[];
+        }).filter(p => p.isActive && p.stockQuantity > 0) as Product[];
+        
+        // Only add categories for products that are active and in stock
+        fetched.forEach(p => {
+          if (!dbCats.includes(p.category)) {
+            dbCats.push(p.category);
+          }
+        });
         
         setAllProducts(fetched);
         setFilteredProducts(fetched);

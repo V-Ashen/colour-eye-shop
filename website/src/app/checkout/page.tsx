@@ -272,7 +272,7 @@ export default function CheckoutPage() {
               {paymentMethod === "bank" && (
                 <div className="space-y-4 animate-in fade-in duration-200">
                   <div className="bg-white/5 border border-[var(--border)] rounded-xl p-4 text-xs space-y-1.5 text-[var(--muted)]">
-                    <p className="font-bold text-[var(--foreground)] text-sm mb-1">Accessories by DN Bank Details:</p>
+                    <p className="font-bold text-[var(--foreground)] text-sm mb-1">Colour Eye Bank Details:</p>
                     <p><strong>Bank:</strong> Commercial Bank of Ceylon</p>
                     <p><strong>Branch:</strong> Mirihana Branch</p>
                     <p><strong>Account Name:</strong> D. N. Accessories (Pvt) Ltd</p>

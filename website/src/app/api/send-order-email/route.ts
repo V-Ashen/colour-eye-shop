@@ -47,16 +47,16 @@ export async function POST(request: Request) {
         <p style="color: #475569; font-size: 16px;"><strong>Delivery Address:</strong> ${shippingAddress}</p>
 
         <p style="color: #64748b; font-size: 14px; text-align: center; margin-top: 30px;">
-          Accessories by DN • Sri Lanka
+          Colour Eye • Sri Lanka
         </p>
       </div>
     `;
 
     // Send the email
     const data = await resend.emails.send({
-      from: 'Accessories by DN <onboarding@resend.dev>',
+      from: 'Colour Eye <onboarding@resend.dev>',
       to: [customerEmail],
-      subject: 'Order Confirmation - Accessories by DN',
+      subject: 'Order Confirmation - Colour Eye',
       html: emailHtml,
     });
 

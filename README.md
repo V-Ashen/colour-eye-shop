@@ -1,7 +1,7 @@
-Accessories by DN - Monorepo
+Colour Eye - Monorepo
 
 
-Welcome to the official repository for Accessories by DN, a modern, mobile-first e-commerce ecosystem. This project is structured as a Monorepo containing two completely separate Next.js applications that connect to a single, centralized Firebase database.
+Welcome to the official repository for Colour Eye, a modern, mobile-first e-commerce ecosystem. This project is structured as a Monorepo containing two completely separate Next.js applications that connect to a single, centralized Firebase database.
 
 /website: The elegant, customer-facing e-commerce storefront for browsing items, managing a cart, and completing Cash on Delivery (COD) checkouts.
 https://github.com/V-Ashen/accessories-by-DN.git
