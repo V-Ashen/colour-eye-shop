@@ -64,6 +64,11 @@ export default function CheckoutPage() {
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Delivery Details Validation
+    if (!email.trim() || !fullName.trim() || !phone.trim() || !address.trim()) {
+      return alert("Please fill in all required Delivery Details in Step 1.");
+    }
+
     // Payment Validation
     if (paymentMethod === "bank" && !receiptFile) return alert("Please upload your bank receipt slip!");
     if (paymentMethod === "card" && (!cardNumber || !cardExpiry || !cardCvv || !cardName)) return alert("Please fill in all credit card details!");

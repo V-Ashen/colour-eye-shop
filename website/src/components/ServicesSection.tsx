@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, limit, addDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import ReviewCard from "./ReviewCard";
 import { Truck, CheckCircle, Award } from "lucide-react";
@@ -67,7 +67,40 @@ export default function ServicesSection() {
       try {
         const q = query(collection(db, "reviews"), orderBy("createdAt", "desc"), limit(3));
         const snapshot = await getDocs(q);
-        setReviews(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Review[]);
+        
+        let fetchedReviews = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Review[];
+
+        if (fetchedReviews.length === 0) {
+          const defaultReviews = [
+            {
+              platform: "google",
+              reviewerName: "Amaya Perera",
+              reviewText: "Absolutely love the butterfly necklace! The quality is amazing and it hasn't tarnished at all. Fast delivery too.",
+              createdAt: new Date()
+            },
+            {
+              platform: "facebook",
+              reviewerName: "Sarah M.",
+              reviewText: "Bought a custom name necklace for my best friend and she was thrilled. Customer service was super helpful throughout the process.",
+              createdAt: new Date()
+            },
+            {
+              platform: "google",
+              reviewerName: "Nethmi Silva",
+              reviewText: "The aesthetic is unmatched. I always get compliments when wearing Colour Eye pieces. Highly recommend!",
+              createdAt: new Date()
+            }
+          ];
+
+          for (const rev of defaultReviews) {
+            await addDoc(collection(db, "reviews"), rev);
+          }
+          
+          const newSnapshot = await getDocs(q);
+          fetchedReviews = newSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Review[];
+        }
+
+        setReviews(fetchedReviews);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       } finally {

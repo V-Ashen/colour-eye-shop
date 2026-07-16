@@ -14,6 +14,7 @@ interface Product {
   stockQuantity: number;
   images: string[];
   isActive: boolean;
+  requiresCustomerImage?: boolean;
   createdAt: any;
 }
 
@@ -56,6 +57,7 @@ export default function ProductGridPaginated() {
           stockQuantity: doc.data().stockQuantity,
           images: doc.data().images || [],
           isActive: doc.data().isActive,
+          requiresCustomerImage: doc.data().requiresCustomerImage || false,
           createdAt: doc.data().createdAt,
         })) as Product[];
         setProducts(fetched);
