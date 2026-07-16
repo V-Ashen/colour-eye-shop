@@ -160,10 +160,10 @@ export default function Footer() {
                 Sri Lanka 10100
               </p>
               <a
-                href="mailto:dinushenya891@gmail.com"
+                href="mailto:chamudigunawardana071@gmail.com"
                 className="text-xs text-[var(--muted)] hover:text-[var(--accent)] tracking-wide transition-colors duration-150 block"
               >
-                dinushenya891@gmail.com
+                chamudigunawardana071@gmail.com
               </a>
             </address>
           </div>

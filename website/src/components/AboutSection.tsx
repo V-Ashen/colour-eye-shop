@@ -62,7 +62,7 @@ export default function AboutSection() {
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[140px] font-light text-[var(--accent)] opacity-5 leading-none select-none pointer-events-none whitespace-nowrap"
             style={{ fontFamily: "var(--font-serif)" }}
           >
-            DN
+            CE
           </span>
           <h2
             className="relative z-10 text-[2.6rem] font-light text-[var(--foreground)] leading-tight tracking-wide"

@@ -25,11 +25,17 @@ export default function TrackOrderPage() {
       try {
         const q = query(
           collection(db, "orders"),
-          where("userId", "==", user.uid),
-          orderBy("createdAt", "desc")
+          where("userId", "==", user.uid)
         );
         const snapshot = await getDocs(q);
-        setOrders(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        const fetchedOrders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as any }));
+        // Sort locally to avoid Firebase Composite Index requirement
+        fetchedOrders.sort((a, b) => {
+          const timeA = a.createdAt?.toMillis() || 0;
+          const timeB = b.createdAt?.toMillis() || 0;
+          return timeB - timeA;
+        });
+        setOrders(fetchedOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {

@@ -2,8 +2,36 @@
 
 import Image from "next/image";
 import { MapPin, Mail, PhoneCall } from "lucide-react";
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 export default function ContactSection() {
+  const [socials, setSocials] = useState({
+    facebook: "https://www.facebook.com/profile.php?id=100090141546352",
+    instagram: "https://www.instagram.com/accessories_by_dn_?igsh=bjNqbDV5MHBIOWlt",
+    tiktok: "https://www.tiktok.com/@dnfashionjewellery25?_r=1&_t=ZS-972Dv3H8MdD"
+  });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const docSnap = await getDoc(doc(db, "settings", "global"));
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setSocials(prev => ({
+            facebook: data.facebookUrl || prev.facebook,
+            instagram: data.instagramUrl || prev.instagram,
+            tiktok: data.tiktokUrl || prev.tiktok
+          }));
+        }
+      } catch (err) {
+        console.error("Error fetching global settings:", err);
+      }
+    };
+    fetchSettings();
+  }, []);
+
   return (
     <section className="bg-[var(--background)] py-20 px-4 sm:px-6 lg:px-8" id="contact">
       <div className="max-w-7xl mx-auto">
@@ -54,10 +82,10 @@ export default function ContactSection() {
               Email Us
             </h3>
             <p className="text-xs text-[var(--muted)] mb-5 tracking-wide">
-              dinushenya891@gmail.com
+              chamudigunawardana071@gmail.com
             </p>
             <a
-              href="mailto:dinushenya891@gmail.com"
+              href="mailto:chamudigunawardana071@gmail.com"
               className="inline-flex items-center gap-1.5 border border-[var(--border)] text-[var(--foreground)] text-[10px] font-semibold tracking-widest uppercase px-5 py-2 rounded-full hover:bg-[var(--accent)] hover:text-[#0f1115] hover:border-[var(--accent)] transition-all duration-200 shadow-sm"
             >
               Send an Email
@@ -80,7 +108,7 @@ export default function ContactSection() {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="https://www.facebook.com/profile.php?id=100090141546352"
+                href={socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"
@@ -89,7 +117,7 @@ export default function ContactSection() {
                 <Image src="/icons/facebook.svg" alt="Facebook" width={18} height={18} className="opacity-70 hover:opacity-100" />
               </a>
               <a
-                href="https://www.instagram.com/accessories_by_dn_?igsh=bjNqbDV5MHBlOWlt"
+                href={socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"
@@ -98,7 +126,7 @@ export default function ContactSection() {
                 <Image src="/icons/instagram.svg" alt="Instagram" width={18} height={18} className="opacity-70 hover:opacity-100" />
               </a>
               <a
-                href="https://www.tiktok.com/@dnfashionjewellery25?_r=1&_t=ZS-972Dv3H8MdD"
+                href={socials.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"

@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import ProductCard from "@/components/ProductCard"; // Still needed by ProductGridPaginated indirectly
 import HeroSlider from "@/components/HeroSlider"; // NEW
 import ProductGridPaginated from "@/components/ProductGridPaginated"; // NEW
+import CustomFramesGuide from "@/components/CustomFramesGuide"; // NEW
 import ServicesSection from "@/components/ServicesSection";
 
 // No direct getProducts call here anymore, ProductGridPaginated handles it
@@ -17,6 +18,9 @@ export default async function ShopHome() {
 
       {/* 1.1. Trending & Latest Items (Paginated) */}
       <ProductGridPaginated />
+
+      {/* 1.5 Custom Frames Guide */}
+      <CustomFramesGuide />
 
       {/* 2. Services Section (Why Choose Us & Reviews) */}
       <ServicesSection />
