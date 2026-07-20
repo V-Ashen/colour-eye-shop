@@ -17,8 +17,12 @@ interface Product {
   isFeatured?: boolean; // NEW: Featured flag
   category?: string;
   description?: string;
+  hasFrameSizes?: boolean;
+  frameSizes?: { size: string; price: number }[];
   createdAt: any;
 }
+
+const AVAILABLE_FRAME_SIZES = ["Mini Frame", "5x5 Inch", "6x8 Inch", "A4 Frame", "A3 Frame", "Polaroid Photo"];
 
 const generateAIPlaceholderDescription = (name: string) => {
   return `${name} is an exquisite addition to our exclusive catalog. Crafted with meticulous attention to detail, this item embodies the perfect blend of modern aesthetic appeal and practical durability. Designed for daily use, it adds a touch of elegance and convenience to your lifestyle.`;
@@ -51,6 +55,9 @@ export default function ManageProductsPage() {
   const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
   const [addingCategory, setAddingCategory] = useState(false);
+  
+  const [editHasFrameSizes, setEditHasFrameSizes] = useState(false);
+  const [editFrameSizes, setEditFrameSizes] = useState<{size: string, price: number}[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -161,6 +168,8 @@ export default function ManageProductsPage() {
     setEditStock(String(product.stockQuantity));
     setEditCategory(product.category || "Home Decor");
     setEditDescription(product.description || generateAIPlaceholderDescription(product.name));
+    setEditHasFrameSizes(product.hasFrameSizes || false);
+    setEditFrameSizes(product.frameSizes || []);
     setShowNewCategoryInput(false);
     setIsEditModalOpen(true);
   };
@@ -176,6 +185,8 @@ export default function ManageProductsPage() {
         stockQuantity: Number(editStock),
         category: editCategory,
         description: editDescription,
+        hasFrameSizes: editHasFrameSizes,
+        frameSizes: editHasFrameSizes ? editFrameSizes : [],
       });
       alert("Product updated successfully!");
       setIsEditModalOpen(false);
@@ -406,6 +417,68 @@ export default function ManageProductsPage() {
                 <label className="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">SEO Product Description</label>
                 <textarea rows={5} value={editDescription} onChange={e => setEditDescription(e.target.value)} className="w-full bg-white border border-[#E0DDD6] rounded-xl p-4 outline-none focus:border-[#C9A84C] text-sm text-slate-600 leading-relaxed transition" />
               </div>
+
+              {/* Edit Frame Size Settings */}
+              <div className="flex flex-col gap-3 p-4 border rounded-xl bg-slate-50 mt-4">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    id="editHasFrameSizes"
+                    checked={editHasFrameSizes}
+                    onChange={(e) => {
+                      setEditHasFrameSizes(e.target.checked);
+                      if (!e.target.checked) setEditFrameSizes([]);
+                    }}
+                    className="w-5 h-5 text-[#C9A84C] rounded focus:ring-[#C9A84C] border-[#E0DDD6] cursor-pointer"
+                  />
+                  <div>
+                    <label htmlFor="editHasFrameSizes" className="font-bold text-sm text-slate-900 cursor-pointer">Provides Frame Sizes</label>
+                  </div>
+                </div>
+                
+                {editHasFrameSizes && (
+                  <div className="mt-2 space-y-2 border-t border-[#E0DDD6] pt-3">
+                    {AVAILABLE_FRAME_SIZES.map(size => {
+                      const existing = editFrameSizes.find(f => f.size === size);
+                      return (
+                        <div key={size} className="flex items-center gap-4 bg-white p-2 border border-[#E0DDD6] rounded-lg shadow-sm">
+                          <label className="flex items-center gap-2 flex-1 cursor-pointer">
+                            <input 
+                              type="checkbox"
+                              checked={!!existing}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setEditFrameSizes([...editFrameSizes, { size, price: 0 }]);
+                                } else {
+                                  setEditFrameSizes(editFrameSizes.filter(f => f.size !== size));
+                                }
+                              }}
+                              className="w-4 h-4 text-[#C9A84C] rounded border-[#E0DDD6]"
+                            />
+                            <span className="text-sm font-semibold text-slate-800">{size}</span>
+                          </label>
+                          {existing && (
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">LKR</span>
+                              <input 
+                                type="number" 
+                                required
+                                value={existing.price || ""}
+                                onChange={(e) => {
+                                  setEditFrameSizes(editFrameSizes.map(f => f.size === size ? { ...f, price: Number(e.target.value) } : f));
+                                }}
+                                placeholder="Price"
+                                className="w-24 border border-[#E0DDD6] rounded p-1.5 text-sm outline-none focus:border-[#C9A84C] transition"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
               <button type="submit" disabled={loading} className="w-full bg-[#1C1C1E] text-[#C9A84C] font-bold py-4 rounded-xl hover:bg-[#2A2A2E] shadow-md transition mt-6">
                 {loading ? "Saving Changes..." : "Save Product Details"}
               </button>

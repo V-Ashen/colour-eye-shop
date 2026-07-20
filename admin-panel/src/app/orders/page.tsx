@@ -11,6 +11,7 @@ interface OrderItem {
   price: number;
   quantity: number;
   image: string;
+  selectedSize?: string;
 }
 
 interface Order {
@@ -352,7 +353,10 @@ export default function OrderManagementPage() {
                         <tr key={idx} className="hover:bg-[#FAF9F7]">
                           <td className="p-4 flex items-center gap-4">
                             <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded-lg border border-[#E0DDD6]" />
-                            <span className="font-bold text-[#1C1C1E] text-sm">{item.name}</span>
+                            <div>
+                              <span className="font-bold text-[#1C1C1E] text-sm block">{item.name}</span>
+                              {item.selectedSize && <span className="text-[10px] text-[#C9A84C] font-bold uppercase tracking-wider block mt-0.5">Size: {item.selectedSize}</span>}
+                            </div>
                           </td>
                           <td className="p-4 text-center font-medium text-slate-600">{item.quantity}</td>
                           <td className="p-4 text-right font-medium text-[#1C1C1E]">LKR {(item.price * item.quantity).toLocaleString()}</td>

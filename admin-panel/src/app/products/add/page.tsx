@@ -8,6 +8,7 @@ import { ArrowLeft, PlusCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const DEFAULT_CATEGORIES = ["Kitchenware", "Home Decor", "Tech", "Cosmetics"];
+const AVAILABLE_FRAME_SIZES = ["Mini Frame", "5x5 Inch", "6x8 Inch", "A4 Frame", "A3 Frame", "Polaroid Photo"];
 
 export default function AddProductPage() {
   const router = useRouter();
@@ -24,6 +25,8 @@ export default function AddProductPage() {
   const [description, setDescription] = useState("");
   const [imageAlt, setImageAlt] = useState("");
   const [requiresCustomerImage, setRequiresCustomerImage] = useState(false);
+  const [hasFrameSizes, setHasFrameSizes] = useState(false);
+  const [frameSizes, setFrameSizes] = useState<{size: string, price: number}[]>([]);
 
   // Categories list from DB
   const [categories, setCategories] = useState<any[]>([]);
@@ -115,6 +118,8 @@ export default function AddProductPage() {
         description: description, // Saved to DB
         imageAlt: imageAlt, // Saved to DB for image SEO!
         requiresCustomerImage: requiresCustomerImage,
+        hasFrameSizes: hasFrameSizes,
+        frameSizes: hasFrameSizes ? frameSizes : [],
         images: [imageUrl], 
         isActive: true,
         createdAt: new Date(),
@@ -130,6 +135,8 @@ export default function AddProductPage() {
       setDescription("");
       setImageAlt("");
       setRequiresCustomerImage(false);
+      setHasFrameSizes(false);
+      setFrameSizes([]);
       router.push("/products"); // Push back to product overview list
     } catch (error) {
       console.error("Error adding product: ", error);
@@ -300,6 +307,69 @@ export default function AddProductPage() {
             <label htmlFor="requiresImage" className="font-bold text-sm text-slate-900 cursor-pointer">Requires Customer Images</label>
             <p className="text-[10px] text-slate-500">Check this if the customer needs to upload reference pictures (e.g. for custom jewelry) during checkout.</p>
           </div>
+        </div>
+
+        {/* Frame Size Settings (NEW) */}
+        <div className="flex flex-col gap-3 p-4 border rounded-xl bg-slate-50">
+          <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              id="hasFrameSizes"
+              checked={hasFrameSizes}
+              onChange={(e) => {
+                setHasFrameSizes(e.target.checked);
+                if (!e.target.checked) setFrameSizes([]);
+              }}
+              className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-slate-300 cursor-pointer"
+            />
+            <div>
+              <label htmlFor="hasFrameSizes" className="font-bold text-sm text-slate-900 cursor-pointer">Provides Frame Sizes</label>
+              <p className="text-[10px] text-slate-500">Check this if customers can select different frame sizes for this product.</p>
+            </div>
+          </div>
+          
+          {hasFrameSizes && (
+            <div className="mt-2 space-y-2 border-t border-slate-200 pt-3">
+              <p className="text-xs font-bold text-slate-700 mb-2">Select available sizes and set their prices:</p>
+              {AVAILABLE_FRAME_SIZES.map(size => {
+                const existing = frameSizes.find(f => f.size === size);
+                return (
+                  <div key={size} className="flex items-center gap-4 bg-white p-2 border rounded-lg shadow-sm">
+                    <label className="flex items-center gap-2 flex-1 cursor-pointer">
+                      <input 
+                        type="checkbox"
+                        checked={!!existing}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFrameSizes([...frameSizes, { size, price: 0 }]);
+                          } else {
+                            setFrameSizes(frameSizes.filter(f => f.size !== size));
+                          }
+                        }}
+                        className="w-4 h-4 text-blue-600 rounded border-slate-300"
+                      />
+                      <span className="text-sm font-semibold text-slate-800">{size}</span>
+                    </label>
+                    {existing && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">LKR</span>
+                        <input 
+                          type="number" 
+                          required
+                          value={existing.price || ""}
+                          onChange={(e) => {
+                            setFrameSizes(frameSizes.map(f => f.size === size ? { ...f, price: Number(e.target.value) } : f));
+                          }}
+                          placeholder="Price"
+                          className="w-24 border border-slate-200 rounded p-1.5 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                        />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Submit */}

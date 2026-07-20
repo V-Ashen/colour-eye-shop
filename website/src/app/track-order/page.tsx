@@ -120,7 +120,10 @@ export default function TrackOrderPage() {
                       <div key={idx} className="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-[var(--border)]">
                         <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded-lg border border-[var(--border)] bg-black/20" />
                         <div className="flex-1">
-                          <p className="font-semibold text-sm text-[var(--foreground)]" style={{ fontFamily: "var(--font-serif)" }}>{item.name}</p>
+                          <p className="font-semibold text-sm text-[var(--foreground)]" style={{ fontFamily: "var(--font-serif)" }}>
+                            {item.name}
+                            {item.selectedSize && <span className="block text-[10px] text-[var(--accent)] font-normal font-sans uppercase tracking-widest mt-0.5">Size: {item.selectedSize}</span>}
+                          </p>
                           <p className="text-[10px] uppercase tracking-widest text-[var(--muted)] mt-0.5">Qty: {item.quantity}</p>
                         </div>
                       </div>

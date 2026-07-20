@@ -388,7 +388,10 @@ export default function CheckoutPage() {
                 <div key={item.id} className="flex items-center gap-3 bg-white/5 border border-[var(--border)] rounded-xl p-3">
                   <img src={item.image} alt={item.name} className="w-14 h-14 object-cover rounded-lg border border-[var(--border)] flex-shrink-0 bg-black/20" />
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-semibold text-[var(--foreground)] truncate tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>{item.name}</h4>
+                    <h4 className="text-sm font-semibold text-[var(--foreground)] truncate tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>
+                      {item.name}
+                      {item.selectedSize && <span className="block text-[10px] text-[var(--accent)] font-normal font-sans uppercase tracking-widest mt-1">Size: {item.selectedSize}</span>}
+                    </h4>
                     <p className="text-[11px] text-[var(--muted)] tracking-widest uppercase">Qty: {item.quantity}</p>
                   </div>
                   <p className="text-sm font-semibold text-[var(--foreground)] flex-shrink-0">LKR {(item.price * item.quantity).toLocaleString()}</p>

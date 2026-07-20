@@ -16,6 +16,8 @@ interface Product {
   category?: string;
   description?: string;
   requiresCustomerImage?: boolean;
+  hasFrameSizes?: boolean;
+  frameSizes?: { size: string; price: number }[];
 }
 
 function ProductDetailsContent() {
@@ -23,6 +25,7 @@ function ProductDetailsContent() {
   const searchParams = useSearchParams();
   const productId = searchParams.get("id");
   const [product, setProduct] = useState<Product | null>(null);
+  const [selectedFrameSize, setSelectedFrameSize] = useState<{size: string, price: number} | null>(null);
   const [loading, setLoading] = useState(true);
   const addToCart = useCartStore((state) => state.addToCart);
 
@@ -36,7 +39,11 @@ function ProductDetailsContent() {
       try {
         const docSnap = await getDoc(doc(db, "products", productId));
         if (docSnap.exists()) {
-          setProduct({ id: docSnap.id, ...docSnap.data() } as Product);
+          const data = docSnap.data() as Product;
+          setProduct({ id: docSnap.id, ...data });
+          if (data.hasFrameSizes && data.frameSizes && data.frameSizes.length > 0) {
+            setSelectedFrameSize(data.frameSizes[0]);
+          }
         } else {
           router.push("/");
         }
@@ -102,8 +109,32 @@ function ProductDetailsContent() {
             </p>
             <h1 className="text-3xl font-semibold text-[var(--foreground)] mb-4 tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>{product.name}</h1>
             
-            <p className="text-2xl font-bold text-[var(--accent)] mb-6" style={{ fontFamily: "var(--font-serif)" }}>LKR {product.price.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-[var(--accent)] mb-6" style={{ fontFamily: "var(--font-serif)" }}>
+              LKR {(selectedFrameSize ? selectedFrameSize.price : product.price).toLocaleString()}
+            </p>
             
+            {/* Frame Size Selector */}
+            {product.hasFrameSizes && product.frameSizes && product.frameSizes.length > 0 && (
+              <div className="mb-6">
+                <h3 className="font-semibold text-[var(--foreground)] mb-3 text-sm uppercase tracking-widest">Select Size</h3>
+                <div className="flex flex-wrap gap-3">
+                  {product.frameSizes.map((frame, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedFrameSize(frame)}
+                      className={`px-4 py-2 border rounded-full text-xs font-bold transition-all ${
+                        selectedFrameSize?.size === frame.size 
+                          ? "bg-[var(--accent)] text-[#0f1115] border-[var(--accent)] shadow-[0_0_10px_var(--accent-glow)]" 
+                          : "bg-white/5 text-[var(--muted)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--foreground)]"
+                      }`}
+                    >
+                      {frame.size}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="mb-6">
               <span className={`px-3 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase border ${
                 product.stockQuantity > 0 ? "bg-green-500/10 text-green-500 border-green-500/20" : "bg-red-500/10 text-red-500 border-red-500/20"
@@ -138,7 +169,13 @@ function ProductDetailsContent() {
 
             {/* Add to Cart button */}
             <button 
-              onClick={() => addToCart(product)}
+              onClick={() => {
+                addToCart({
+                  ...product,
+                  selectedSize: selectedFrameSize ? selectedFrameSize.size : undefined,
+                  price: selectedFrameSize ? selectedFrameSize.price : product.price
+                });
+              }}
               disabled={product.stockQuantity === 0}
               className="mt-8 w-full bg-[var(--accent)] text-[#0f1115] font-bold text-xs tracking-widest uppercase py-4 rounded-full hover:bg-white active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-[0_0_15px_var(--accent-glow)]"
             >

@@ -8,6 +8,8 @@ interface CartItem {
   quantity: number;
   maxStock: number;
   requiresCustomerImage?: boolean;
+  selectedSize?: string;
+  originalProductId: string;
 }
 
 interface CartStore {
@@ -34,13 +36,15 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   addToCart: (product) => {
     set((state) => {
-      const existingItem = state.cart.find((item) => item.id === product.id);
+      // Create a unique cart ID if it has a size variation
+      const cartItemId = product.selectedSize ? `${product.id}-${product.selectedSize}` : product.id;
+      const existingItem = state.cart.find((item) => item.id === cartItemId);
       
       if (existingItem) {
         if (existingItem.quantity < product.stockQuantity) {
           return {
             cart: state.cart.map((item) =>
-              item.id === product.id
+              item.id === cartItemId
                 ? { ...item, quantity: item.quantity + 1 }
                 : item
             ),
@@ -55,13 +59,15 @@ export const useCartStore = create<CartStore>((set, get) => ({
         cart: [
           ...state.cart,
           {
-            id: product.id,
+            id: cartItemId,
+            originalProductId: product.id,
             name: product.name,
             price: product.price,
             image: product.images[0],
             maxStock: product.stockQuantity,
             quantity: 1,
             requiresCustomerImage: product.requiresCustomerImage || false,
+            selectedSize: product.selectedSize,
           },
         ],
         isCartOpen: true,

@@ -42,11 +42,15 @@ export default function ProductCard({ product }: { product: any }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              addToCart(product);
+              if (product.hasFrameSizes) {
+                handleCardClick();
+              } else {
+                addToCart(product);
+              }
             }}
             className="w-full bg-[var(--accent)] text-[#0f1115] text-xs font-bold uppercase tracking-widest py-3 rounded-full hover:bg-white transition-colors shadow-[0_0_15px_var(--accent-glow)]"
           >
-            Add to Cart
+            {product.hasFrameSizes ? "Select Size" : "Add to Cart"}
           </button>
         </div>
       </div>
@@ -70,11 +74,15 @@ export default function ProductCard({ product }: { product: any }) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              addToCart(product);
+              if (product.hasFrameSizes) {
+                handleCardClick();
+              } else {
+                addToCart(product);
+              }
             }}
             className="w-full bg-white/5 border border-[var(--border)] text-[var(--foreground)] text-[10px] font-bold uppercase tracking-widest py-2 rounded-full hover:bg-[var(--accent)] hover:text-[#0f1115] hover:border-[var(--accent)] transition-colors shadow-lg"
           >
-            + Add
+            {product.hasFrameSizes ? "+ Select" : "+ Add"}
           </button>
         </div>
       </div>

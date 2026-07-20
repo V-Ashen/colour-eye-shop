@@ -97,6 +97,7 @@ export default function CartDrawer() {
                       style={{ fontFamily: "var(--font-serif)" }}
                     >
                       {item.name}
+                      {item.selectedSize && <span className="block text-[10px] text-[var(--accent)] font-normal font-sans uppercase tracking-widest mt-1">Size: {item.selectedSize}</span>}
                     </h3>
                     <div className="flex items-center gap-3 mt-2">
                       <div className="flex items-center border border-[var(--border)] rounded-full px-2 py-0.5 w-fit">

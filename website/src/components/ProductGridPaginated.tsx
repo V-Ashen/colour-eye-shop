@@ -15,6 +15,8 @@ interface Product {
   images: string[];
   isActive: boolean;
   requiresCustomerImage?: boolean;
+  hasFrameSizes?: boolean;
+  frameSizes?: { size: string; price: number }[];
   createdAt: any;
 }
 
@@ -58,6 +60,8 @@ export default function ProductGridPaginated() {
           images: doc.data().images || [],
           isActive: doc.data().isActive,
           requiresCustomerImage: doc.data().requiresCustomerImage || false,
+          hasFrameSizes: doc.data().hasFrameSizes || false,
+          frameSizes: doc.data().frameSizes || [],
           createdAt: doc.data().createdAt,
         })) as Product[];
         setProducts(fetched);
