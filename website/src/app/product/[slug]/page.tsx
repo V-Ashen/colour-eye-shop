@@ -40,7 +40,7 @@ function ProductDetailsContent() {
         const docSnap = await getDoc(doc(db, "products", productId));
         if (docSnap.exists()) {
           const data = docSnap.data() as Product;
-          setProduct({ id: docSnap.id, ...data });
+          setProduct({ ...data, id: docSnap.id });
           if (data.hasFrameSizes && data.frameSizes && data.frameSizes.length > 0) {
             setSelectedFrameSize(data.frameSizes[0]);
           }
