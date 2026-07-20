@@ -54,7 +54,7 @@ function SuccessContent() {
 
         <button 
           onClick={() => router.push("/")}
-          className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-bold uppercase tracking-widest py-4 rounded-full hover:bg-white transition shadow-[0_0_15px_var(--accent-glow)]"
+          className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-bold uppercase tracking-widest py-4 rounded-full hover:bg-white hover:text-[var(--foreground)] transition shadow-[0_0_15px_var(--accent-glow)]"
         >
           Continue Shopping
         </button>

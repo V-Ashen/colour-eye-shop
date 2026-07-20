@@ -16,13 +16,15 @@ import {
   ShieldAlert, 
   Settings,
   LogOut,
-  Hexagon // Logo icon
+  Hexagon, // Logo icon
+  MessageSquare
 } from "lucide-react";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { user, hasPermission, roleCode } = useAdminAuthStore();
   const [pendingCount, setPendingCount] = useState(0);
+  const [unreadMessages, setUnreadMessages] = useState(0);
 
   // Fetch pending orders count for the badge
   useEffect(() => {
@@ -35,7 +37,21 @@ export default function Sidebar() {
         console.error("Error fetching pending orders", error);
       }
     };
-    if (user) fetchPendingOrders();
+    
+    const fetchUnreadMessages = async () => {
+      try {
+        const q = query(collection(db, "messages"), where("status", "==", "Unread"));
+        const snapshot = await getDocs(q);
+        setUnreadMessages(snapshot.size);
+      } catch (error) {
+        console.error("Error fetching unread messages", error);
+      }
+    };
+
+    if (user) {
+      fetchPendingOrders();
+      fetchUnreadMessages();
+    }
   }, [user]);
 
   if (pathname === "/login") return null;
@@ -52,6 +68,7 @@ export default function Sidebar() {
     { name: "Dashboard", icon: LayoutDashboard, path: "/", permission: "view dashboard", isNew: true },
     { name: "Orders & Billing", icon: ShoppingCart, path: "/orders", permission: "manage orders", badge: pendingCount },
     { name: "Products", icon: Tag, path: "/products", permission: "manage products" },
+    { name: "Messages", icon: MessageSquare, path: "/messages", permission: "view messages", badge: unreadMessages },
   ];
 
   const managementLinks = [

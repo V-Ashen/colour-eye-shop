@@ -48,7 +48,7 @@ export default function ProductCard({ product }: { product: any }) {
                 addToCart(product);
               }
             }}
-            className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-bold uppercase tracking-widest py-3 rounded-full hover:bg-white transition-colors shadow-[0_0_15px_var(--accent-glow)]"
+            className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-bold uppercase tracking-widest py-3 rounded-full hover:bg-white hover:text-[var(--foreground)] transition-colors shadow-[0_0_15px_var(--accent-glow)]"
           >
             {product.hasFrameSizes ? "Select Size" : "Add to Cart"}
           </button>

@@ -369,7 +369,7 @@ export default function CheckoutPage() {
             <button
               onClick={handleCheckout}
               disabled={loading || isSuccess}
-              className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-semibold tracking-widest uppercase py-4 rounded-full hover:bg-white active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2 shadow-[0_0_15px_var(--accent-glow)]"
+              className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-semibold tracking-widest uppercase py-4 rounded-full hover:bg-white hover:text-[var(--foreground)] active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2 shadow-[0_0_15px_var(--accent-glow)]"
             >
               {loading || isSuccess ? "Processing Order..." : `Confirm Order — LKR ${grandTotal().toLocaleString()}`}
             </button>

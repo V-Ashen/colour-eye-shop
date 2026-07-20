@@ -8,49 +8,31 @@ const frames = [
   {
     id: "mini",
     title: "Mini Frame",
-    price: 575,
-    aspect: "aspect-square",
-    icon: <ImageIcon size={24} strokeWidth={1.5} />,
     description: "Perfect for desks & small spaces"
   },
   {
     id: "5x5",
     title: "5x5 Inch",
-    price: 750,
-    aspect: "aspect-square",
-    icon: <ImageIcon size={24} strokeWidth={1.5} />,
     description: "Classic square format for IG photos"
   },
   {
     id: "6x8",
     title: "6x8 Inch",
-    price: 1500,
-    aspect: "aspect-[3/4]",
-    icon: <ImageIcon size={24} strokeWidth={1.5} />,
     description: "Standard portrait perfection"
   },
   {
     id: "a4",
     title: "A4 Frame",
-    price: 1950,
-    aspect: "aspect-[1/1.414]",
-    icon: <ImageIcon size={24} strokeWidth={1.5} />,
     description: "Ideal for wall collages & gifts"
   },
   {
     id: "a3",
     title: "A3 Frame",
-    price: 3000,
-    aspect: "aspect-[1/1.414]",
-    icon: <ImageIcon size={30} strokeWidth={1.5} />,
     description: "Large statement piece for your home"
   },
   {
     id: "polaroid",
     title: "Polaroid Photo",
-    price: 100,
-    aspect: "aspect-[3/4]",
-    icon: <Camera size={24} strokeWidth={1.5} />,
     description: "Vintage vibes for your memory wall"
   }
 ];
@@ -114,25 +96,10 @@ export default function CustomFramesGuide() {
               variants={itemVariants}
               className="group flex flex-col relative"
             >
-              {/* Visual representation of the frame ratio */}
-              <div className="mb-4 flex items-end justify-center h-32 w-full p-2">
-                <div className={`${frame.aspect} bg-black/5 border border-black/10 rounded-lg flex items-center justify-center w-full max-h-full group-hover:border-[var(--accent)] group-hover:bg-black/10 group-hover:shadow-[0_0_15px_var(--accent-glow)] transition-all duration-300 relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors duration-300 group-hover:scale-110 transform">
-                    {frame.icon}
-                  </div>
-                </div>
-              </div>
-
               {/* Details */}
-              <div className="text-center flex-1 flex flex-col">
-                <h3 className="text-sm font-semibold text-[var(--foreground)] mb-1 tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>{frame.title}</h3>
-                <p className="text-[10px] text-[var(--muted)] mb-3 flex-1">{frame.description}</p>
-                <div className="inline-block mt-auto">
-                  <span className="text-[11px] font-bold tracking-widest text-[var(--accent)] bg-[var(--accent)]/10 px-3 py-1.5 rounded-full border border-[var(--accent)]/20 shadow-sm">
-                    LKR {frame.price.toLocaleString()}
-                  </span>
-                </div>
+              <div className="text-center flex-1 flex flex-col p-6 bg-white/40 border border-[var(--border)] rounded-2xl hover:border-[var(--accent)] hover:shadow-[0_0_15px_var(--accent-glow)] transition-all duration-300">
+                <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2 tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>{frame.title}</h3>
+                <p className="text-xs text-[var(--muted)]">{frame.description}</p>
               </div>
             </motion.div>
           ))}
@@ -143,13 +110,13 @@ export default function CustomFramesGuide() {
           <div className="glass-glow border border-[var(--border)] rounded-2xl p-8 sm:p-12 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 hover:border-[var(--accent)] transition-colors duration-500 group">
             <div className="text-left">
               <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2 tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>Ready to frame a memory?</h3>
-              <p className="text-sm text-[var(--muted)]">Customized frames are also available via direct order.</p>
+              <p className="text-sm text-[var(--muted)]">If you want a customized order, drop us a message.</p>
             </div>
             <button 
-              onClick={() => router.push("/shop")}
+              onClick={() => router.push("/contact#message-form")}
               className="flex-shrink-0 flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--background)] text-[11px] font-bold uppercase tracking-widest px-8 py-4 rounded-full hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all duration-300 shadow-[0_0_15px_var(--accent-glow)] hover:shadow-[0_0_25px_var(--accent-glow)] group-hover:scale-105"
             >
-              Order Now <ArrowRight size={14} />
+              Drop a Message <ArrowRight size={14} />
             </button>
           </div>
         </div>

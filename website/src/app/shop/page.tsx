@@ -156,7 +156,7 @@ export default function ShopPage() {
               {/* Track Order */}
               <button
                 onClick={() => router.push("/track-order")}
-                className="w-full flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--background)] text-[11px] font-bold uppercase tracking-widest py-3.5 hover:bg-white transition-colors shadow-[0_0_15px_var(--accent-glow)] rounded-xl"
+                className="w-full flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--background)] text-[11px] font-bold uppercase tracking-widest py-3.5 hover:bg-white hover:text-[var(--foreground)] transition-colors shadow-[0_0_15px_var(--accent-glow)] rounded-xl"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 22h14"/>

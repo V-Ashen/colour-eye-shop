@@ -8,7 +8,7 @@ import { Edit, Trash2 } from "lucide-react"; // Added
 
 const AVAILABLE_PERMS = [
   "view dashboard", "manage orders", "manage products", 
-  "manage staff", "manage roles" // Relevant permissions for your system
+  "manage staff", "manage roles", "view messages" // Relevant permissions for your system
 ];
 
 export default function RolesPage() {

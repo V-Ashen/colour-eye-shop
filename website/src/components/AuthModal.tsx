@@ -121,7 +121,7 @@ export default function AuthModal() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[var(--accent)] text-[var(--background)] text-[10px] font-bold tracking-widest uppercase py-3.5 rounded-full hover:bg-white active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-1 shadow-[0_0_15px_var(--accent-glow)]"
+              className="w-full bg-[var(--accent)] text-[var(--background)] text-[10px] font-bold tracking-widest uppercase py-3.5 rounded-full hover:bg-white hover:text-[var(--foreground)] active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-1 shadow-[0_0_15px_var(--accent-glow)]"
             >
               {loading ? "Please wait…" : isLogin ? "Sign In" : "Sign Up"}
             </button>

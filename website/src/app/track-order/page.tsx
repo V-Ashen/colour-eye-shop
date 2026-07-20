@@ -80,7 +80,7 @@ export default function TrackOrderPage() {
           <div className="glass-glow border border-[var(--border)] rounded-2xl p-12 text-center shadow-sm">
             <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2" style={{ fontFamily: "var(--font-serif)" }}>No orders found</h3>
             <p className="text-[var(--muted)] mb-6">Looks like you haven't placed any orders yet.</p>
-            <button onClick={() => router.push("/shop")} className="bg-[var(--accent)] text-[var(--background)] px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_15px_var(--accent-glow)]">
+            <button onClick={() => router.push("/shop")} className="bg-[var(--accent)] text-[var(--background)] px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[var(--foreground)] transition-all shadow-[0_0_15px_var(--accent-glow)]">
               Start Shopping
             </button>
           </div>

@@ -154,7 +154,7 @@ export default function CartDrawer() {
             </p>
             <button
               onClick={handleCheckoutClick}
-              className="w-full bg-[var(--accent)] text-[var(--background)] text-[11px] font-bold tracking-widest uppercase py-4 rounded-xl hover:bg-white active:scale-[0.98] transition-all duration-200 shadow-[0_0_15px_var(--accent-glow)]"
+              className="w-full bg-[var(--accent)] text-[var(--background)] text-[11px] font-bold tracking-widest uppercase py-4 rounded-xl hover:bg-white hover:text-[var(--foreground)] active:scale-[0.98] transition-all duration-200 shadow-[0_0_15px_var(--accent-glow)]"
             >
               Proceed to Checkout
             </button>

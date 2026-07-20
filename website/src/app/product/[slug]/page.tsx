@@ -60,24 +60,6 @@ function ProductDetailsContent() {
   if (loading) return <div className="min-h-screen bg-[var(--background)] flex items-center justify-center font-bold text-[var(--muted)] tracking-widest uppercase text-xs">Loading Product details...</div>;
   if (!product) return null;
 
-  // --- Dynamic AI SEO Description Generator ---
-  // If the product doesn't have a database description yet, we generate an elite one on-the-fly!
-  const generateSEODescription = (name: string, category: string = "Accessories") => {
-    return {
-      mainText: `${name} is an exquisite addition to our exclusive catalog. Crafted with meticulous attention to detail, this item embodies the perfect blend of modern aesthetic appeal and practical durability. Designed for daily use, it adds a touch of elegance and convenience to your lifestyle.`,
-      features: [
-        "Premium Craftsmanship: Engineered with high-quality materials to guarantee long-lasting durability.",
-        "Aesthetic Appeal: Features a minimalist and sleek design that effortlessly matches any modern aesthetic.",
-        "Ideal Gift Choice: Packaged beautifully, making it a perfect present for friends, family, or loved ones."
-      ],
-      usage: [
-        "Keep away from direct exposure to water or harsh chemicals to preserve the product's premium finish.",
-        "Clean gently using a soft, dry microfibre cloth after use."
-      ]
-    };
-  };
-
-  const seoData = generateSEODescription(product.name, product.category);
 
   return (
     <div className="min-h-screen bg-[var(--background)] py-24 px-4 sm:px-6 lg:px-8 text-[var(--foreground)]">
@@ -144,28 +126,16 @@ function ProductDetailsContent() {
             </div>
 
             {/* Product Details accordion */}
-            <div className="border-t border-[var(--border)] pt-6 mt-6 space-y-6">
-              <div>
-                <h3 className="font-semibold text-[var(--foreground)] mb-2 text-lg" style={{ fontFamily: "var(--font-serif)" }}>Description</h3>
-                <p className="text-[var(--muted)] text-sm leading-relaxed text-justify">
-                  {product.description || seoData.mainText}
-                </p>
+            {product.description && (
+              <div className="border-t border-[var(--border)] pt-6 mt-6 space-y-6">
+                <div>
+                  <h3 className="font-semibold text-[var(--foreground)] mb-2 text-lg" style={{ fontFamily: "var(--font-serif)" }}>Description</h3>
+                  <p className="text-[var(--muted)] text-sm leading-relaxed text-justify whitespace-pre-line">
+                    {product.description}
+                  </p>
+                </div>
               </div>
-
-              <div>
-                <h3 className="font-semibold text-[var(--foreground)] mb-2 text-lg" style={{ fontFamily: "var(--font-serif)" }}>Key Features</h3>
-                <ul className="list-disc list-inside text-sm text-[var(--muted)] space-y-1.5">
-                  {seoData.features.map((feat, i) => <li key={i}>{feat}</li>)}
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-[var(--foreground)] mb-2 text-lg" style={{ fontFamily: "var(--font-serif)" }}>Care & Usage Tips</h3>
-                <ol className="list-decimal list-inside text-sm text-[var(--muted)] space-y-1.5">
-                  {seoData.usage.map((tip, i) => <li key={i}>{tip}</li>)}
-                </ol>
-              </div>
-            </div>
+            )}
 
             {/* Add to Cart button */}
             <button 
@@ -177,7 +147,7 @@ function ProductDetailsContent() {
                 });
               }}
               disabled={product.stockQuantity === 0}
-              className="mt-8 w-full bg-[var(--accent)] text-white font-bold text-xs tracking-widest uppercase py-4 rounded-full hover:bg-white active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-[0_0_15px_var(--accent-glow)]"
+              className="mt-8 w-full bg-[var(--accent)] text-white font-bold text-xs tracking-widest uppercase py-4 rounded-full hover:bg-white hover:text-[var(--foreground)] active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-[0_0_15px_var(--accent-glow)]"
             >
               <ShoppingBag size={18} /> {product.stockQuantity === 0 ? "Sold Out" : "Add to Cart"}
             </button>
