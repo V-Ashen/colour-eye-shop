@@ -69,7 +69,7 @@ export default function TrackOrderPage() {
         </button>
 
         <div className="flex items-center gap-3 mb-8">
-          <div className="p-3 bg-white/5 rounded-xl border border-[var(--border)] shadow-[0_0_15px_var(--accent-glow)]"><PackageSearch className="text-[var(--accent)]" /></div>
+          <div className="p-3 bg-black/5 rounded-xl border border-[var(--border)] shadow-[0_0_15px_var(--accent-glow)]"><PackageSearch className="text-[var(--accent)]" /></div>
           <div>
             <h1 className="text-3xl font-semibold text-[var(--foreground)]" style={{ fontFamily: "var(--font-serif)" }}>Order History</h1>
             <p className="text-xs tracking-widest uppercase text-[var(--muted)] mt-1">Tracking for {user?.email}</p>
@@ -80,7 +80,7 @@ export default function TrackOrderPage() {
           <div className="glass-glow border border-[var(--border)] rounded-2xl p-12 text-center shadow-sm">
             <h3 className="text-lg font-semibold text-[var(--foreground)] mb-2" style={{ fontFamily: "var(--font-serif)" }}>No orders found</h3>
             <p className="text-[var(--muted)] mb-6">Looks like you haven't placed any orders yet.</p>
-            <button onClick={() => router.push("/shop")} className="bg-[var(--accent)] text-[#0f1115] px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_15px_var(--accent-glow)]">
+            <button onClick={() => router.push("/shop")} className="bg-[var(--accent)] text-[var(--background)] px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_15px_var(--accent-glow)]">
               Start Shopping
             </button>
           </div>
@@ -117,8 +117,8 @@ export default function TrackOrderPage() {
                   {/* Order Items */}
                   <div className="space-y-3">
                     {order.items.map((item: any, idx: number) => (
-                      <div key={idx} className="flex items-center gap-4 bg-white/5 p-3 rounded-xl border border-[var(--border)]">
-                        <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded-lg border border-[var(--border)] bg-black/20" />
+                      <div key={idx} className="flex items-center gap-4 bg-black/5 p-3 rounded-xl border border-[var(--border)]">
+                        <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded-lg border border-[var(--border)] bg-black/5" />
                         <div className="flex-1">
                           <p className="font-semibold text-sm text-[var(--foreground)]" style={{ fontFamily: "var(--font-serif)" }}>
                             {item.name}

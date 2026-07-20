@@ -156,7 +156,7 @@ export default function ShopPage() {
               {/* Track Order */}
               <button
                 onClick={() => router.push("/track-order")}
-                className="w-full flex items-center justify-center gap-2 bg-[var(--accent)] text-[#0f1115] text-[11px] font-bold uppercase tracking-widest py-3.5 hover:bg-white transition-colors shadow-[0_0_15px_var(--accent-glow)] rounded-xl"
+                className="w-full flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--background)] text-[11px] font-bold uppercase tracking-widest py-3.5 hover:bg-white transition-colors shadow-[0_0_15px_var(--accent-glow)] rounded-xl"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 22h14"/>
@@ -210,7 +210,7 @@ export default function ShopPage() {
                       onClick={() => setActiveCategory(category)}
                       className={`whitespace-nowrap px-4 py-2 text-[10px] font-bold uppercase tracking-widest border rounded-full transition-all ${
                         activeCategory === category 
-                          ? "bg-[var(--accent)] text-[#0f1115] border-[var(--accent)] shadow-[0_0_10px_var(--accent-glow)]" 
+                          ? "bg-[var(--accent)] text-[var(--background)] border-[var(--accent)] shadow-[0_0_10px_var(--accent-glow)]" 
                           : "bg-transparent text-[var(--muted)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--foreground)]"
                       }`}
                     >
@@ -243,7 +243,7 @@ export default function ShopPage() {
                     <button
                       onClick={handlePrevPage}
                       disabled={currentPage === 1}
-                      className="p-3 bg-white/5 border border-[var(--border)] rounded-full text-[var(--foreground)] hover:bg-[var(--accent)] hover:text-[#0f1115] hover:border-[var(--accent)] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm"
+                      className="p-3 bg-black/5 border border-[var(--border)] rounded-full text-[var(--foreground)] hover:bg-[var(--accent)] hover:text-[var(--background)] hover:border-[var(--accent)] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm"
                     >
                       <ChevronLeft size={16} />
                     </button>
@@ -255,7 +255,7 @@ export default function ShopPage() {
                     <button
                       onClick={handleNextPage}
                       disabled={currentPage === totalPages}
-                      className="p-3 bg-white/5 border border-[var(--border)] rounded-full text-[var(--foreground)] hover:bg-[var(--accent)] hover:text-[#0f1115] hover:border-[var(--accent)] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm"
+                      className="p-3 bg-black/5 border border-[var(--border)] rounded-full text-[var(--foreground)] hover:bg-[var(--accent)] hover:text-[var(--background)] hover:border-[var(--accent)] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm"
                     >
                       <ChevronRight size={16} />
                     </button>

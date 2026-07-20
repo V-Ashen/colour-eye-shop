@@ -74,7 +74,7 @@ export default function CustomFramesGuide() {
   const router = useRouter();
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-[#0a0a0c] relative overflow-hidden" id="custom-frames">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-[var(--background)] relative overflow-hidden" id="custom-frames">
       {/* Decorative background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[var(--accent)] opacity-[0.03] blur-[120px] rounded-full pointer-events-none" />
 
@@ -90,12 +90,12 @@ export default function CustomFramesGuide() {
             <Sparkles size={14} className="text-[var(--accent)]" />
           </div>
           <h2 
-            className="text-3xl sm:text-4xl lg:text-5xl font-medium text-white leading-tight tracking-tight mb-4"
+            className="text-3xl sm:text-4xl lg:text-5xl font-medium text-[var(--foreground)] leading-tight tracking-tight mb-4"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             Custom Photo Frames
           </h2>
-          <p className="text-sm text-white/50 max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm text-[var(--muted)] max-w-xl mx-auto leading-relaxed">
             Turn your favorite memories into aesthetic masterpieces. Choose your perfect size, and we will craft a premium frame just for you.
           </p>
         </div>
@@ -116,7 +116,7 @@ export default function CustomFramesGuide() {
             >
               {/* Visual representation of the frame ratio */}
               <div className="mb-4 flex items-end justify-center h-32 w-full p-2">
-                <div className={`${frame.aspect} bg-white/5 border border-white/10 rounded-lg flex items-center justify-center w-full max-h-full group-hover:border-[var(--accent)] group-hover:bg-white/10 group-hover:shadow-[0_0_15px_var(--accent-glow)] transition-all duration-300 relative overflow-hidden`}>
+                <div className={`${frame.aspect} bg-black/5 border border-black/10 rounded-lg flex items-center justify-center w-full max-h-full group-hover:border-[var(--accent)] group-hover:bg-black/10 group-hover:shadow-[0_0_15px_var(--accent-glow)] transition-all duration-300 relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div className="text-[var(--muted)] group-hover:text-[var(--accent)] transition-colors duration-300 group-hover:scale-110 transform">
                     {frame.icon}
@@ -126,8 +126,8 @@ export default function CustomFramesGuide() {
 
               {/* Details */}
               <div className="text-center flex-1 flex flex-col">
-                <h3 className="text-sm font-semibold text-white mb-1 tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>{frame.title}</h3>
-                <p className="text-[10px] text-white/40 mb-3 flex-1">{frame.description}</p>
+                <h3 className="text-sm font-semibold text-[var(--foreground)] mb-1 tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>{frame.title}</h3>
+                <p className="text-[10px] text-[var(--muted)] mb-3 flex-1">{frame.description}</p>
                 <div className="inline-block mt-auto">
                   <span className="text-[11px] font-bold tracking-widest text-[var(--accent)] bg-[var(--accent)]/10 px-3 py-1.5 rounded-full border border-[var(--accent)]/20 shadow-sm">
                     LKR {frame.price.toLocaleString()}
@@ -142,12 +142,12 @@ export default function CustomFramesGuide() {
         <div className="mt-20 text-center">
           <div className="glass-glow border border-[var(--border)] rounded-2xl p-8 sm:p-12 max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 hover:border-[var(--accent)] transition-colors duration-500 group">
             <div className="text-left">
-              <h3 className="text-xl font-semibold text-white mb-2 tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>Ready to frame a memory?</h3>
-              <p className="text-sm text-white/50">Customized frames are also available via direct order.</p>
+              <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2 tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>Ready to frame a memory?</h3>
+              <p className="text-sm text-[var(--muted)]">Customized frames are also available via direct order.</p>
             </div>
             <button 
               onClick={() => router.push("/shop")}
-              className="flex-shrink-0 flex items-center justify-center gap-2 bg-[var(--accent)] text-[#0f1115] text-[11px] font-bold uppercase tracking-widest px-8 py-4 rounded-full hover:bg-white transition-all duration-300 shadow-[0_0_15px_var(--accent-glow)] hover:shadow-[0_0_25px_var(--accent-glow)] group-hover:scale-105"
+              className="flex-shrink-0 flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--background)] text-[11px] font-bold uppercase tracking-widest px-8 py-4 rounded-full hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all duration-300 shadow-[0_0_15px_var(--accent-glow)] hover:shadow-[0_0_25px_var(--accent-glow)] group-hover:scale-105"
             >
               Order Now <ArrowRight size={14} />
             </button>

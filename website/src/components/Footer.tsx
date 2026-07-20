@@ -35,7 +35,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#161921] text-[var(--muted)] py-16 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
+    <footer className="bg-[var(--background)] text-[var(--muted)] py-16 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
       <div className="max-w-7xl mx-auto">
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
@@ -70,7 +70,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"
+                className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-black/5 transition-all duration-200"
               >
                 <Image src="/icons/facebook.svg" alt="Facebook" width={15} height={15} className="opacity-70 hover:opacity-100" />
               </a>
@@ -79,7 +79,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"
+                className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-black/5 transition-all duration-200"
               >
                 <Image src="/icons/instagram.svg" alt="Instagram" width={15} height={15} className="opacity-70 hover:opacity-100" />
               </a>
@@ -88,7 +88,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"
-                className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"
+                className="w-8 h-8 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-black/5 transition-all duration-200"
               >
                 <Image src="/icons/tiktok.svg" alt="TikTok" width={15} height={15} className="opacity-70 hover:opacity-100" />
               </a>

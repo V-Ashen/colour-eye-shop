@@ -60,7 +60,7 @@ export default function CartDrawer() {
         <div className="flex-1 overflow-y-auto px-6 py-2">
           {cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full gap-3 text-center pb-16">
-              <div className="w-14 h-14 rounded-full bg-white/5 border border-[var(--border)] flex items-center justify-center shadow-[0_0_15px_var(--accent-glow)]">
+              <div className="w-14 h-14 rounded-full bg-black/5 border border-[var(--border)] flex items-center justify-center shadow-[0_0_15px_var(--accent-glow)]">
                 <svg className="w-6 h-6 text-[var(--accent)]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
@@ -88,7 +88,7 @@ export default function CartDrawer() {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-20 h-24 min-w-[80px] min-h-[96px] object-cover rounded-md bg-white/5 border border-[var(--border)]"
+                  className="w-20 h-24 min-w-[80px] min-h-[96px] object-cover rounded-md bg-black/5 border border-[var(--border)]"
                 />
                 <div className="flex-1 flex flex-col justify-between py-1 min-w-0">
                   <div>
@@ -139,7 +139,7 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {cart.length > 0 && (
-          <div className="px-6 py-5 border-t border-[var(--border)] bg-[#161921]">
+          <div className="px-6 py-5 border-t border-[var(--border)] bg-[var(--background)]">
             <div className="flex justify-between items-baseline mb-1">
               <span className="text-xs text-[var(--muted)] tracking-widest uppercase">Subtotal</span>
               <span
@@ -154,7 +154,7 @@ export default function CartDrawer() {
             </p>
             <button
               onClick={handleCheckoutClick}
-              className="w-full bg-[var(--accent)] text-[#0f1115] text-[11px] font-bold tracking-widest uppercase py-4 rounded-xl hover:bg-white active:scale-[0.98] transition-all duration-200 shadow-[0_0_15px_var(--accent-glow)]"
+              className="w-full bg-[var(--accent)] text-[var(--background)] text-[11px] font-bold tracking-widest uppercase py-4 rounded-xl hover:bg-white active:scale-[0.98] transition-all duration-200 shadow-[0_0_15px_var(--accent-glow)]"
             >
               Proceed to Checkout
             </button>

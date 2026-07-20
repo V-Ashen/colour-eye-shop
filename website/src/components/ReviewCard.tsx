@@ -50,7 +50,7 @@ export default function ReviewCard({ platform, reviewerName, reviewText }: Revie
         {/* Footer */}
         <div className="flex items-center justify-between pt-4 border-t border-[var(--border)] relative z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 border border-white/20 shadow-[0_0_10px_var(--accent-glow)] group-hover:border-[var(--accent)] transition-colors">
+            <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center flex-shrink-0 border border-black/20 shadow-[0_0_10px_var(--accent-glow)] group-hover:border-[var(--accent)] transition-colors">
               <span className="text-[var(--accent)] text-xs font-bold tracking-wide">
                 {initials}
               </span>

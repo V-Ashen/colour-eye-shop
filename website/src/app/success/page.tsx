@@ -25,7 +25,7 @@ function SuccessContent() {
       <div className="glass-glow max-w-lg w-full rounded-2xl shadow-sm p-8 md:p-12 text-center border border-[var(--border)]">
         
         {/* Success Checkmark Icon */}
-        <div className="w-20 h-20 bg-white/5 border border-[var(--border)] rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_var(--accent-glow)]">
+        <div className="w-20 h-20 bg-black/5 border border-[var(--border)] rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_var(--accent-glow)]">
           <svg className="w-10 h-10 text-[var(--accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
           </svg>
@@ -41,7 +41,7 @@ function SuccessContent() {
           Thank you for shopping with Colour Eye. We have received your order and are getting it beautifully packaged for you.
         </p>
 
-        <div className="bg-white/5 py-6 px-4 rounded-xl border border-[var(--border)] mb-8">
+        <div className="bg-black/5 py-6 px-4 rounded-xl border border-[var(--border)] mb-8">
           <p className="text-[10px] text-[var(--accent)] uppercase tracking-[0.2em] font-semibold mb-2" style={{ textShadow: "0 0 8px var(--accent-glow)" }}>Your Tracking Number</p>
           <p className="text-2xl font-mono font-bold text-[var(--foreground)] tracking-widest">
             {orderId.slice(-8).toUpperCase()}
@@ -54,7 +54,7 @@ function SuccessContent() {
 
         <button 
           onClick={() => router.push("/")}
-          className="w-full bg-[var(--accent)] text-[#0f1115] text-xs font-bold uppercase tracking-widest py-4 rounded-full hover:bg-white transition shadow-[0_0_15px_var(--accent-glow)]"
+          className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-bold uppercase tracking-widest py-4 rounded-full hover:bg-white transition shadow-[0_0_15px_var(--accent-glow)]"
         >
           Continue Shopping
         </button>

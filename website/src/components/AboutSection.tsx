@@ -94,7 +94,7 @@ export default function AboutSection() {
         {/* Stats strip */}
         <div className="grid grid-cols-3 divide-x divide-[var(--border)] border border-[var(--border)] rounded-xl overflow-hidden mb-10">
           {stats.map(({ value, label }) => (
-            <div key={label} className="flex flex-col items-center py-4 bg-white/5">
+            <div key={label} className="flex flex-col items-center py-4 bg-black/5">
               <span
                 className="text-[1.8rem] font-light text-[var(--accent)] leading-none"
                 style={{ fontFamily: "var(--font-serif)" }}
@@ -117,10 +117,10 @@ export default function AboutSection() {
           {policies.map(({ title, body, icon }) => (
             <div
               key={title}
-              className="p-5 bg-white/5 hover:bg-white/10 transition-colors duration-200 group"
+              className="p-5 bg-black/5 hover:bg-black/10 transition-colors duration-200 group"
             >
               {/* Icon circle */}
-              <div className="w-7 h-7 rounded-full bg-white/10 border border-[var(--border)] flex items-center justify-center mb-3 flex-shrink-0 group-hover:border-[var(--accent)] transition-colors shadow-sm">
+              <div className="w-7 h-7 rounded-full bg-black/10 border border-[var(--border)] flex items-center justify-center mb-3 flex-shrink-0 group-hover:border-[var(--accent)] transition-colors shadow-sm">
                 {icon}
               </div>
               <h4

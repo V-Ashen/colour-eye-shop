@@ -55,8 +55,8 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
           {/* Card 1: Location */}
-          <div className="group flex flex-col items-center text-center bg-white/5 border border-[var(--border)] rounded-2xl p-8 hover:bg-white/10 hover:border-[var(--accent)] transition-all duration-300">
-            <div className="w-12 h-12 rounded-full bg-white/10 border border-[var(--border)] flex items-center justify-center mb-5 group-hover:scale-105 group-hover:border-[var(--accent)] transition-all duration-300 shadow-sm">
+          <div className="group flex flex-col items-center text-center bg-black/5 border border-[var(--border)] rounded-2xl p-8 hover:bg-black/10 hover:border-[var(--accent)] transition-all duration-300">
+            <div className="w-12 h-12 rounded-full bg-black/10 border border-[var(--border)] flex items-center justify-center mb-5 group-hover:scale-105 group-hover:border-[var(--accent)] transition-all duration-300 shadow-sm">
               <MapPin size={20} className="text-[var(--accent)]" strokeWidth={1.5} />
             </div>
             <h3
@@ -71,8 +71,8 @@ export default function ContactSection() {
           </div>
 
           {/* Card 2: Email */}
-          <div className="group flex flex-col items-center text-center bg-white/5 border border-[var(--border)] rounded-2xl p-8 hover:bg-white/10 hover:border-[var(--accent)] transition-all duration-300">
-            <div className="w-12 h-12 rounded-full bg-white/10 border border-[var(--border)] flex items-center justify-center mb-5 group-hover:scale-105 group-hover:border-[var(--accent)] transition-all duration-300 shadow-sm">
+          <div className="group flex flex-col items-center text-center bg-black/5 border border-[var(--border)] rounded-2xl p-8 hover:bg-black/10 hover:border-[var(--accent)] transition-all duration-300">
+            <div className="w-12 h-12 rounded-full bg-black/10 border border-[var(--border)] flex items-center justify-center mb-5 group-hover:scale-105 group-hover:border-[var(--accent)] transition-all duration-300 shadow-sm">
               <Mail size={20} className="text-[var(--accent)]" strokeWidth={1.5} />
             </div>
             <h3
@@ -86,15 +86,15 @@ export default function ContactSection() {
             </p>
             <a
               href="mailto:chamudigunawardana071@gmail.com"
-              className="inline-flex items-center gap-1.5 border border-[var(--border)] text-[var(--foreground)] text-[10px] font-semibold tracking-widest uppercase px-5 py-2 rounded-full hover:bg-[var(--accent)] hover:text-[#0f1115] hover:border-[var(--accent)] transition-all duration-200 shadow-sm"
+              className="inline-flex items-center gap-1.5 border border-[var(--border)] text-[var(--foreground)] text-[10px] font-semibold tracking-widest uppercase px-5 py-2 rounded-full hover:bg-[var(--accent)] hover:text-[var(--background)] hover:border-[var(--accent)] transition-all duration-200 shadow-sm"
             >
               Send an Email
             </a>
           </div>
 
           {/* Card 3: Social */}
-          <div className="group flex flex-col items-center text-center bg-white/5 border border-[var(--border)] rounded-2xl p-8 hover:bg-white/10 hover:border-[var(--accent)] transition-all duration-300">
-            <div className="w-12 h-12 rounded-full bg-white/10 border border-[var(--border)] flex items-center justify-center mb-5 group-hover:scale-105 group-hover:border-[var(--accent)] transition-all duration-300 shadow-sm">
+          <div className="group flex flex-col items-center text-center bg-black/5 border border-[var(--border)] rounded-2xl p-8 hover:bg-black/10 hover:border-[var(--accent)] transition-all duration-300">
+            <div className="w-12 h-12 rounded-full bg-black/10 border border-[var(--border)] flex items-center justify-center mb-5 group-hover:scale-105 group-hover:border-[var(--accent)] transition-all duration-300 shadow-sm">
               <PhoneCall size={20} className="text-[var(--accent)]" strokeWidth={1.5} />
             </div>
             <h3
@@ -111,7 +111,7 @@ export default function ContactSection() {
                 href={socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-black/5 transition-all duration-200"
                 aria-label="Facebook"
               >
                 <Image src="/icons/facebook.svg" alt="Facebook" width={18} height={18} className="opacity-70 hover:opacity-100" />
@@ -120,7 +120,7 @@ export default function ContactSection() {
                 href={socials.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-black/5 transition-all duration-200"
                 aria-label="Instagram"
               >
                 <Image src="/icons/instagram.svg" alt="Instagram" width={18} height={18} className="opacity-70 hover:opacity-100" />
@@ -129,7 +129,7 @@ export default function ContactSection() {
                 href={socials.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-black/5 transition-all duration-200"
                 aria-label="TikTok"
               >
                 <Image src="/icons/tiktok.svg" alt="TikTok" width={18} height={18} className="opacity-70 hover:opacity-100" />

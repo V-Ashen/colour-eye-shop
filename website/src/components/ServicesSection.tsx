@@ -16,15 +16,15 @@ interface Review {
 
 function SkeletonReview() {
   return (
-    <div className="rounded-2xl border border-[var(--border)] bg-white/5 animate-pulse overflow-hidden">
-      <div className="h-14 bg-white/5" />
+    <div className="rounded-2xl border border-[var(--border)] bg-black/5 animate-pulse overflow-hidden">
+      <div className="h-14 bg-black/5" />
       <div className="p-5 flex flex-col gap-3">
-        <div className="h-2.5 bg-white/10 rounded-full w-full" />
-        <div className="h-2.5 bg-white/10 rounded-full w-5/6" />
-        <div className="h-2.5 bg-white/10 rounded-full w-2/3" />
+        <div className="h-2.5 bg-black/10 rounded-full w-full" />
+        <div className="h-2.5 bg-black/10 rounded-full w-5/6" />
+        <div className="h-2.5 bg-black/10 rounded-full w-2/3" />
         <div className="flex items-center gap-3 pt-3 border-t border-[var(--border)]">
-          <div className="w-7 h-7 rounded-full bg-white/10" />
-          <div className="h-2.5 bg-white/10 rounded-full w-1/3" />
+          <div className="w-7 h-7 rounded-full bg-black/10" />
+          <div className="h-2.5 bg-black/10 rounded-full w-1/3" />
         </div>
       </div>
     </div>
@@ -143,11 +143,11 @@ export default function ServicesSection() {
                 {/* Icon & Number Header */}
                 <div className="flex justify-between items-start mb-6">
                   <div
-                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-[0_0_20px_var(--accent-glow)] ${accent ? 'bg-[var(--accent)] text-[#0f1115]' : 'bg-white/10 text-[var(--foreground)] border border-white/20'}`}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-[0_0_20px_var(--accent-glow)] ${accent ? 'bg-[var(--accent)] text-[var(--background)]' : 'bg-black/10 text-[var(--foreground)] border border-black/20'}`}
                   >
                     <Icon size={20} strokeWidth={1.5} />
                   </div>
-                  <span className="text-[10px] text-white/30 font-bold tracking-widest">{num}</span>
+                  <span className="text-[10px] text-[var(--background)]/30 font-bold tracking-widest">{num}</span>
                 </div>
 
                 {/* Text Content */}
@@ -159,7 +159,7 @@ export default function ServicesSection() {
                 {/* Badge */}
                 {badge && (
                   <div className="mt-auto pt-4 border-t border-[var(--border)]">
-                    <span className="inline-block text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full bg-[var(--accent)] text-[#0f1115] shadow-[0_0_10px_var(--accent-glow)]">
+                    <span className="inline-block text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full bg-[var(--accent)] text-[var(--background)] shadow-[0_0_10px_var(--accent-glow)]">
                       {badge}
                     </span>
                   </div>
@@ -171,7 +171,7 @@ export default function ServicesSection() {
       </section>
 
       {/* Reviews */}
-      <section className="bg-[#161921] py-20 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)] relative overflow-hidden">
+      <section className="bg-[var(--background)] py-20 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)] relative overflow-hidden">
         {/* Decorative background glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[var(--accent)] opacity-[0.03] blur-[100px] rounded-full pointer-events-none" />
         
@@ -195,7 +195,7 @@ export default function ServicesSection() {
             </div>
           ) : reviews.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center">
-              <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4 border border-[var(--border)]">
+              <div className="w-16 h-16 rounded-full bg-black/5 flex items-center justify-center mb-4 border border-[var(--border)]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--muted)]">
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                 </svg>

@@ -50,7 +50,7 @@ export default function CheckoutPage() {
   if (cart.length === 0 && !loading && !isSuccess) {
     return (
       <div className="min-h-screen bg-[var(--background)] flex flex-col items-center justify-center gap-4">
-        <div className="w-14 h-14 rounded-full bg-white/5 border border-[var(--border)] flex items-center justify-center shadow-[0_0_15px_var(--accent-glow)]">
+        <div className="w-14 h-14 rounded-full bg-black/5 border border-[var(--border)] flex items-center justify-center shadow-[0_0_15px_var(--accent-glow)]">
           <svg className="w-6 h-6 text-[var(--accent)]" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
           </svg>
@@ -209,7 +209,7 @@ export default function CheckoutPage() {
                     type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
                     readOnly={!!user} // Locked if logged in
                     placeholder="you@example.com"
-                    className={`w-full border border-[var(--border)] rounded-xl px-4 py-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[var(--accent)] transition-colors duration-200 ${user ? 'bg-white/5 text-[var(--muted)]' : 'bg-transparent'}`}
+                    className={`w-full border border-[var(--border)] rounded-xl px-4 py-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[var(--accent)] transition-colors duration-200 ${user ? 'bg-black/5 text-[var(--muted)]' : 'bg-transparent'}`}
                   />
                 </div>
 
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
 
                 {/* RESTORED: CREATE ACCOUNT WIDGET (GUESTS ONLY) */}
                 {!user && (
-                  <div className="bg-white/5 border border-[var(--border)] rounded-xl p-4 mt-4">
+                  <div className="bg-black/5 border border-[var(--border)] rounded-xl p-4 mt-4">
                     <label className="flex items-center gap-3 cursor-pointer">
                       <input 
                         type="checkbox" 
@@ -247,7 +247,7 @@ export default function CheckoutPage() {
                         <input
                           type="password" required={createAccount} value={password} onChange={(e) => setPassword(e.target.value)}
                           placeholder="Minimum 6 characters"
-                          className="w-full border border-[var(--border)] bg-black/20 rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[var(--accent)]"
+                          className="w-full border border-[var(--border)] bg-black/5 rounded-lg px-4 py-3 text-sm text-[var(--foreground)] focus:outline-none focus:border-[var(--accent)]"
                         />
                       </div>
                     )}
@@ -262,7 +262,7 @@ export default function CheckoutPage() {
               <div>
                 <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-1">Step 2</p>
                 <h2 className="text-xl font-semibold text-[var(--foreground)] tracking-wide mb-6" style={{ fontFamily: "var(--font-serif)" }}>Reference Images</h2>
-                <div className="bg-white/5 border border-[var(--border)] rounded-xl p-6">
+                <div className="bg-black/5 border border-[var(--border)] rounded-xl p-6">
                   <p className="text-xs text-[var(--muted)] mb-4">Some products in your cart require custom reference images. Please upload them below.</p>
                   
                   <div className="flex flex-wrap gap-4 mb-4">
@@ -272,7 +272,7 @@ export default function CheckoutPage() {
                         <button 
                           type="button"
                           onClick={() => setCustomerImages(prev => prev.filter((_, i) => i !== idx))}
-                          className="absolute top-1 right-1 bg-black/60 p-1 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
+                          className="absolute top-1 right-1 bg-black/60 p-1 rounded-full text-[var(--background)] opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
                         >
                           <X size={14} />
                         </button>
@@ -308,15 +308,15 @@ export default function CheckoutPage() {
               <h2 className="text-xl font-semibold text-[var(--foreground)] tracking-wide mb-6" style={{ fontFamily: "var(--font-serif)" }}>Payment Method</h2>
 
               <div className="grid grid-cols-3 gap-3 mb-6">
-                <button type="button" onClick={() => setPaymentMethod("cod")} className={`flex flex-col items-center justify-center p-4 border rounded-xl transition-all ${paymentMethod === "cod" ? "border-[var(--accent)] bg-[var(--accent)]/10 shadow-[0_0_10px_var(--accent-glow)]" : "border-[var(--border)] hover:bg-white/5"}`}>
+                <button type="button" onClick={() => setPaymentMethod("cod")} className={`flex flex-col items-center justify-center p-4 border rounded-xl transition-all ${paymentMethod === "cod" ? "border-[var(--accent)] bg-[var(--accent)]/10 shadow-[0_0_10px_var(--accent-glow)]" : "border-[var(--border)] hover:bg-black/5"}`}>
                   <Banknote size={20} className={paymentMethod === "cod" ? "text-[var(--accent)]" : "text-[var(--muted)]"} />
                   <span className="text-[10px] font-bold uppercase tracking-wider mt-2">COD</span>
                 </button>
-                <button type="button" onClick={() => setPaymentMethod("bank")} className={`flex flex-col items-center justify-center p-4 border rounded-xl transition-all ${paymentMethod === "bank" ? "border-[var(--accent)] bg-[var(--accent)]/10 shadow-[0_0_10px_var(--accent-glow)]" : "border-[var(--border)] hover:bg-white/5"}`}>
+                <button type="button" onClick={() => setPaymentMethod("bank")} className={`flex flex-col items-center justify-center p-4 border rounded-xl transition-all ${paymentMethod === "bank" ? "border-[var(--accent)] bg-[var(--accent)]/10 shadow-[0_0_10px_var(--accent-glow)]" : "border-[var(--border)] hover:bg-black/5"}`}>
                   <Landmark size={20} className={paymentMethod === "bank" ? "text-[var(--accent)]" : "text-[var(--muted)]"} />
                   <span className="text-[10px] font-bold uppercase tracking-wider mt-2">Bank</span>
                 </button>
-                <button type="button" onClick={() => setPaymentMethod("card")} className={`flex flex-col items-center justify-center p-4 border rounded-xl transition-all ${paymentMethod === "card" ? "border-[var(--accent)] bg-[var(--accent)]/10 shadow-[0_0_10px_var(--accent-glow)]" : "border-[var(--border)] hover:bg-white/5"}`}>
+                <button type="button" onClick={() => setPaymentMethod("card")} className={`flex flex-col items-center justify-center p-4 border rounded-xl transition-all ${paymentMethod === "card" ? "border-[var(--accent)] bg-[var(--accent)]/10 shadow-[0_0_10px_var(--accent-glow)]" : "border-[var(--border)] hover:bg-black/5"}`}>
                   <CreditCard size={20} className={paymentMethod === "card" ? "text-[var(--accent)]" : "text-[var(--muted)]"} />
                   <span className="text-[10px] font-bold uppercase tracking-wider mt-2">Card</span>
                 </button>
@@ -324,15 +324,15 @@ export default function CheckoutPage() {
 
               {/* Dynamic Payment Details Display */}
               {paymentMethod === "cod" && (
-                <div className="flex items-center gap-3 bg-white/5 border border-[var(--border)] rounded-xl px-4 py-3 animate-in fade-in duration-200">
-                  <div className="w-8 h-8 rounded-full border border-[var(--border)] bg-white/10 flex items-center justify-center flex-shrink-0 shadow-sm"><Banknote size={16} className="text-[var(--accent)]" /></div>
+                <div className="flex items-center gap-3 bg-black/5 border border-[var(--border)] rounded-xl px-4 py-3 animate-in fade-in duration-200">
+                  <div className="w-8 h-8 rounded-full border border-[var(--border)] bg-black/10 flex items-center justify-center flex-shrink-0 shadow-sm"><Banknote size={16} className="text-[var(--accent)]" /></div>
                   <div><p className="text-[10px] font-bold tracking-wider uppercase text-[var(--muted)]">Cash on Delivery</p><p className="text-xs text-[var(--foreground)]">Pay with cash upon delivery to your doorstep.</p></div>
                 </div>
               )}
 
               {paymentMethod === "bank" && (
                 <div className="space-y-4 animate-in fade-in duration-200">
-                  <div className="bg-white/5 border border-[var(--border)] rounded-xl p-4 text-xs space-y-1.5 text-[var(--muted)]">
+                  <div className="bg-black/5 border border-[var(--border)] rounded-xl p-4 text-xs space-y-1.5 text-[var(--muted)]">
                     <p className="font-bold text-[var(--foreground)] text-sm mb-1">Colour Eye Bank Details:</p>
                     <p><strong>Bank:</strong> Commercial Bank of Ceylon</p>
                     <p><strong>Branch:</strong> Mirihana Branch</p>
@@ -351,7 +351,7 @@ export default function CheckoutPage() {
               )}
 
               {paymentMethod === "card" && (
-                <div className="space-y-3 bg-white/5 border border-[var(--border)] rounded-xl p-4 animate-in fade-in duration-200">
+                <div className="space-y-3 bg-black/5 border border-[var(--border)] rounded-xl p-4 animate-in fade-in duration-200">
                   <p className="font-bold text-[var(--foreground)] text-sm mb-2">Credit / Debit Card</p>
                   <div className="space-y-3">
                     <input type="text" placeholder="Cardholder Name" value={cardName} onChange={(e) => setCardName(e.target.value)} className="w-full border border-[var(--border)] bg-transparent rounded-lg px-3 py-2 text-xs text-[var(--foreground)] placeholder-[var(--muted)] outline-none focus:border-[var(--accent)]" />
@@ -369,7 +369,7 @@ export default function CheckoutPage() {
             <button
               onClick={handleCheckout}
               disabled={loading || isSuccess}
-              className="w-full bg-[var(--accent)] text-[#0f1115] text-xs font-semibold tracking-widest uppercase py-4 rounded-full hover:bg-white active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2 shadow-[0_0_15px_var(--accent-glow)]"
+              className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-semibold tracking-widest uppercase py-4 rounded-full hover:bg-white active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-2 shadow-[0_0_15px_var(--accent-glow)]"
             >
               {loading || isSuccess ? "Processing Order..." : `Confirm Order — LKR ${grandTotal().toLocaleString()}`}
             </button>
@@ -385,8 +385,8 @@ export default function CheckoutPage() {
 
             <div className="space-y-3 mb-6">
               {cart.map((item) => (
-                <div key={item.id} className="flex items-center gap-3 bg-white/5 border border-[var(--border)] rounded-xl p-3">
-                  <img src={item.image} alt={item.name} className="w-14 h-14 object-cover rounded-lg border border-[var(--border)] flex-shrink-0 bg-black/20" />
+                <div key={item.id} className="flex items-center gap-3 bg-black/5 border border-[var(--border)] rounded-xl p-3">
+                  <img src={item.image} alt={item.name} className="w-14 h-14 object-cover rounded-lg border border-[var(--border)] flex-shrink-0 bg-black/5" />
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-semibold text-[var(--foreground)] truncate tracking-wide" style={{ fontFamily: "var(--font-serif)" }}>
                       {item.name}

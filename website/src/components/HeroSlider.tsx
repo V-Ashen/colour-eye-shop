@@ -55,14 +55,14 @@ export default function HeroSlider() {
         <button
           onClick={(e) => { e.stopPropagation(); goPrev(); }}
           aria-label="Previous banner"
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full border border-white/10 glass-dark text-white opacity-0 hover:opacity-100 transition-all duration-300 hover:scale-110 hover:border-[var(--accent)]"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full border border-black/10 glass-dark text-[var(--background)] opacity-0 hover:opacity-100 transition-all duration-300 hover:scale-110 hover:border-[var(--accent)]"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
         </button>
         <button
           onClick={(e) => { e.stopPropagation(); goNext(); }}
           aria-label="Next banner"
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full border border-white/10 glass-dark text-white opacity-0 hover:opacity-100 transition-all duration-300 hover:scale-110 hover:border-[var(--accent)]"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full border border-black/10 glass-dark text-[var(--background)] opacity-0 hover:opacity-100 transition-all duration-300 hover:scale-110 hover:border-[var(--accent)]"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
         </button>
@@ -78,7 +78,7 @@ export default function HeroSlider() {
             key={index}
             onClick={(e) => { e.stopPropagation(); goTo(index); }}
             aria-label={`Go to banner ${index + 1}`}
-            className="h-1 sm:h-1.5 rounded-full overflow-hidden bg-white/20 relative transition-all duration-300"
+            className="h-1 sm:h-1.5 rounded-full overflow-hidden bg-black/5 relative transition-all duration-300"
             style={{ width: index === currentBanner ? "30px" : "15px" }}
           >
             {index === currentBanner && (

@@ -94,7 +94,7 @@ function ProductDetailsContent() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 glass-glow border border-[var(--border)] p-8 rounded-2xl shadow-sm">
           
           {/* Left: Image Carousel placeholder */}
-          <div className="aspect-square bg-black/20 rounded-xl overflow-hidden border border-[var(--border)] relative">
+          <div className="aspect-square bg-black/5 rounded-xl overflow-hidden border border-[var(--border)] relative">
             <img 
               src={product.images[0] || "/placeholder-image.jpg"} 
               alt={`${product.name} - Premium ${product.category || 'Aesthetic Accessory'} | Colour Eye`} 
@@ -124,8 +124,8 @@ function ProductDetailsContent() {
                       onClick={() => setSelectedFrameSize(frame)}
                       className={`px-4 py-2 border rounded-full text-xs font-bold transition-all ${
                         selectedFrameSize?.size === frame.size 
-                          ? "bg-[var(--accent)] text-[#0f1115] border-[var(--accent)] shadow-[0_0_10px_var(--accent-glow)]" 
-                          : "bg-white/5 text-[var(--muted)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--foreground)]"
+                          ? "bg-[var(--accent)] text-white border-[var(--accent)] shadow-[0_0_10px_var(--accent-glow)]" 
+                          : "bg-black/5 text-[var(--muted)] border-[var(--border)] hover:border-[var(--accent)] hover:text-[var(--foreground)]"
                       }`}
                     >
                       {frame.size}
@@ -177,7 +177,7 @@ function ProductDetailsContent() {
                 });
               }}
               disabled={product.stockQuantity === 0}
-              className="mt-8 w-full bg-[var(--accent)] text-[#0f1115] font-bold text-xs tracking-widest uppercase py-4 rounded-full hover:bg-white active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-[0_0_15px_var(--accent-glow)]"
+              className="mt-8 w-full bg-[var(--accent)] text-white font-bold text-xs tracking-widest uppercase py-4 rounded-full hover:bg-white active:scale-[0.98] transition-all flex items-center justify-center gap-3 disabled:opacity-50 shadow-[0_0_15px_var(--accent-glow)]"
             >
               <ShoppingBag size={18} /> {product.stockQuantity === 0 ? "Sold Out" : "Add to Cart"}
             </button>

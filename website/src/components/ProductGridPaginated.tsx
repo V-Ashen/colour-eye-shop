@@ -80,7 +80,7 @@ export default function ProductGridPaginated() {
       <section className="w-full bg-[var(--background)] py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="rounded-xl bg-white/5 border border-white/5 animate-pulse aspect-[3/4]" />
+            <div key={i} className="rounded-xl bg-black/5 border border-black/5 animate-pulse aspect-[3/4]" />
           ))}
         </div>
       </section>
@@ -131,7 +131,7 @@ export default function ProductGridPaginated() {
         <div className="sm:hidden text-center mt-10">
           <button
             onClick={() => router.push("/shop")}
-            className="inline-flex items-center justify-center gap-2 w-full bg-white/5 border border-[var(--border)] text-[var(--foreground)] text-[11px] font-bold uppercase tracking-widest py-3.5 rounded-full hover:bg-[var(--accent)] hover:text-[#0f1115] transition-colors shadow-lg"
+            className="inline-flex items-center justify-center gap-2 w-full bg-black/5 border border-[var(--border)] text-[var(--foreground)] text-[11px] font-bold uppercase tracking-widest py-3.5 rounded-full hover:bg-[var(--accent)] hover:text-[var(--background)] transition-colors shadow-lg"
           >
             View all products
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

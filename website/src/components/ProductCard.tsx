@@ -23,7 +23,7 @@ export default function ProductCard({ product }: { product: any }) {
       className="group flex flex-col h-full bg-transparent cursor-pointer"
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-[3/4] bg-white/5 border border-white/5 overflow-hidden mb-3 sm:mb-4 rounded-xl">
+      <div className="relative w-full aspect-[3/4] bg-black/5 border border-black/5 overflow-hidden mb-3 sm:mb-4 rounded-xl">
         <img
           src={product.images[0] || "/placeholder-image.jpg"}
           alt={`${product.name} - Colour Eye`}
@@ -48,7 +48,7 @@ export default function ProductCard({ product }: { product: any }) {
                 addToCart(product);
               }
             }}
-            className="w-full bg-[var(--accent)] text-[#0f1115] text-xs font-bold uppercase tracking-widest py-3 rounded-full hover:bg-white transition-colors shadow-[0_0_15px_var(--accent-glow)]"
+            className="w-full bg-[var(--accent)] text-[var(--background)] text-xs font-bold uppercase tracking-widest py-3 rounded-full hover:bg-white transition-colors shadow-[0_0_15px_var(--accent-glow)]"
           >
             {product.hasFrameSizes ? "Select Size" : "Add to Cart"}
           </button>
@@ -80,7 +80,7 @@ export default function ProductCard({ product }: { product: any }) {
                 addToCart(product);
               }
             }}
-            className="w-full bg-white/5 border border-[var(--border)] text-[var(--foreground)] text-[10px] font-bold uppercase tracking-widest py-2 rounded-full hover:bg-[var(--accent)] hover:text-[#0f1115] hover:border-[var(--accent)] transition-colors shadow-lg"
+            className="w-full bg-black/5 border border-[var(--border)] text-[var(--foreground)] text-[10px] font-bold uppercase tracking-widest py-2 rounded-full hover:bg-[var(--accent)] hover:text-[var(--background)] hover:border-[var(--accent)] transition-colors shadow-lg"
           >
             {product.hasFrameSizes ? "+ Select" : "+ Add"}
           </button>

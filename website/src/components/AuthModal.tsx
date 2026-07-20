@@ -66,7 +66,7 @@ export default function AuthModal() {
       <div className="glass-glow bg-[var(--background)] w-full max-w-sm rounded-2xl border border-[var(--border)] overflow-hidden shadow-2xl">
 
         {/* Header band */}
-        <div className="bg-white/5 border-b border-[var(--border)] px-8 py-6 relative">
+        <div className="bg-black/5 border-b border-[var(--border)] px-8 py-6 relative">
           <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-0.5" style={{ textShadow: "0 0 8px var(--accent-glow)" }}>
             {isLogin ? "Welcome back" : "Join us"}
           </p>
@@ -121,7 +121,7 @@ export default function AuthModal() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[var(--accent)] text-[#0f1115] text-[10px] font-bold tracking-widest uppercase py-3.5 rounded-full hover:bg-white active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-1 shadow-[0_0_15px_var(--accent-glow)]"
+              className="w-full bg-[var(--accent)] text-[var(--background)] text-[10px] font-bold tracking-widest uppercase py-3.5 rounded-full hover:bg-white active:scale-[0.98] transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed mt-1 shadow-[0_0_15px_var(--accent-glow)]"
             >
               {loading ? "Please wait…" : isLogin ? "Sign In" : "Sign Up"}
             </button>
@@ -138,7 +138,7 @@ export default function AuthModal() {
           <button
             onClick={handleGoogleAuth}
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2.5 border border-[var(--border)] bg-transparent text-[var(--foreground)] text-xs font-semibold tracking-wide py-3 rounded-full hover:border-[var(--accent)] hover:bg-white/5 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full flex items-center justify-center gap-2.5 border border-[var(--border)] bg-transparent text-[var(--foreground)] text-xs font-semibold tracking-wide py-3 rounded-full hover:border-[var(--accent)] hover:bg-black/5 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
