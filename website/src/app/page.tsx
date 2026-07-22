@@ -16,13 +16,13 @@ export default async function ShopHome() {
       {/* 1. Hero Section (with Moving Banners & Catchphrase) */}
       <HeroSlider />
 
-      {/* 1.1. Trending & Latest Items (Paginated) */}
+      {/* 2. Trending & Latest Items (Paginated) */}
       <ProductGridPaginated />
 
-      {/* 1.5 Custom Frames Guide */}
+      {/* 3. Custom Frames Guide */}
       <CustomFramesGuide />
 
-      {/* 2. Services Section (Why Choose Us & Reviews) */}
+      {/* 4. Services Section (Why Choose Us & Reviews) */}
       <ServicesSection />
 
     </main>
