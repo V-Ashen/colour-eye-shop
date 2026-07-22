@@ -109,7 +109,7 @@ export default function CheckoutPage() {
 
       // --- TRANSACTION LOGIC ---
       await runTransaction(db, async (transaction) => {
-        const productRefs = cart.map((item) => doc(db, "products", item.id));
+        const productRefs = cart.map((item) => doc(db, "products", item.originalProductId || item.id));
         const productDocs = await Promise.all(productRefs.map((ref) => transaction.get(ref)));
 
         // Type-safe stock checking
