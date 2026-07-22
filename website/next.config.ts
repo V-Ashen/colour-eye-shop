@@ -16,13 +16,13 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/admin',
-        destination: 'https://accessories-by-dn-admin.vercel.app',
+        destination: 'https://colour-eye-admin.vercel.app',
         permanent: true,
       },
       // This catches anything typed after /admin (e.g., /admin/orders)
       {
         source: '/admin/:path*',
-        destination: 'https://accessories-by-dn-admin.vercel.app/:path*',
+        destination: 'https://colour-eye-admin.vercel.app/:path*',
         permanent: true,
       }
     ];
