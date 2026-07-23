@@ -1,51 +1,133 @@
-Colour Eye - Monorepo
+# 🌿 Colour Eye - Modern E-Commerce Platform & Admin Dashboard
 
+Welcome to the official repository for **Colour Eye**, a full-stack, mobile-first e-commerce ecosystem built for handcrafted frames, custom photo products, and aesthetic accessories. 
 
-Welcome to the official repository for Colour Eye, a modern, mobile-first e-commerce ecosystem. This project is structured as a Monorepo containing two completely separate Next.js applications that connect to a single, centralized Firebase database.
+The repository is structured as a monorepo containing two distinct Next.js applications sharing a single, centralized Firebase database and Cloudinary storage environment.
 
-/website: The elegant, customer-facing e-commerce storefront for browsing items, managing a cart, and completing Cash on Delivery (COD) checkouts.
-https://github.com/V-Ashen/accessories-by-DN.git
+---
 
-/admin-panel: The secure, role-restricted management dashboard for catalog management, stock updates, order processing, and staff administration.
-https://accessories-by-dn-admin.vercel.app/
+## 🌟 Live Deployments
 
+- 🛒 **Customer Storefront**: [colour-eye-shop.vercel.app](https://colour-eye-shop.vercel.app/)
+- 🔐 **Admin Management Panel**: [colour-eye-admin.vercel.app](https://colour-eye-admin.vercel.app/)
 
-🛠️ Tech Stack & Key Integrations
+---
 
+## 🛠️ Technology Stack
 
-Frontend Framework: Next.js 14+ (App Router, TypeScript, Tailwind CSS)
-Database: Cloud Firestore (NoSQL, optimized with transactional queries)
-Authentication: Firebase Authentication (Email/Password & Google SSO)
-Media Hosting: Cloudinary (Free tier content delivery network for product images)
-Transactional Email: Resend API (Automated HTML order receipt delivery)
-State Management: Zustand (Lightweight global state for shopping cart and auth)
+| Layer | Technologies Used |
+| :--- | :--- |
+| **Framework** | [Next.js 16 App Router](https://nextjs.org/) (React 19, TypeScript) |
+| **Styling** | Vanilla CSS + Tailwind CSS (Custom HSL Light Green Theme Architecture) |
+| **State Management** | [Zustand](https://github.com/pmndrs/zustand) (Cart, Order State, Admin Auth & Permissions) |
+| **Database** | [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore) (Atomic Transactions, Real-time WebSockets) |
+| **Authentication** | [Firebase Auth](https://firebase.google.com/docs/auth) (Email/Password, Customer Account Creation) |
+| **Media Storage** | [Cloudinary API](https://cloudinary.com/) (Direct Frontend Preset Uploads for Custom Product References & Bank Slips) |
+| **Icons & UI** | Lucide React |
 
+---
 
-📂 Project Structure
+## 📂 Project Structure
 
-accessories-by-dn-repo/
-├── website/              # Customer Front-End Storefront (Port 3000)
-│   ├── src/app/          # Pages & API routes (App Router)
-│   ├── src/components/   # Modular UI elements (Cart, Navbar, Success page)
-│   ├── src/store/        # Global state (Zustand Cart & Auth)
-│   └── public/           # Static assets (Banners, Logos, Icons)
+```text
+colour-eye-shop/
+├── website/                    # Customer-Facing Storefront Application
+│   ├── src/
+│   │   ├── app/                # Next.js App Router (Shop, Products, Cart, Checkout, Order Tracking)
+│   │   ├── components/         # HeroSlider, ProductGrid, CustomFramesGuide, Contact, Navbar, CartDrawer
+│   │   ├── lib/                # Firebase Client Initialization
+│   │   └── store/              # Zustand Cart & Auth Stores
+│   └── next.config.ts          # Includes automatic /admin -> Admin Panel redirect rule
 │
-└── admin-panel/          # Back-End Management Dashboard (Port 3001)
-    ├── src/app/          # Admin pages (Dashboard, Orders, Catalog, Staff)
-    ├── src/components/   # Administrative UI elements (Guard, Sidebar)
-    └── src/store/        # Admin global state (Zustand Auth)
+└── admin-panel/                # Secure Back-End Management Dashboard
+    ├── src/
+    │   ├── app/                # Dashboard, Orders, Products, Messages, Staff, Roles Management
+    │   ├── components/         # AdminGuard, Sidebar, OrderNotifier (Real-Time WebSocket Alerts)
+    │   ├── lib/                # Firebase Client & Admin Config
+    │   └── store/              # Admin Auth & Permission Control Store
+    └── next.config.ts
+```
 
+---
 
-🚀 Key Functional Systems
+## ✨ Key Features & Architecture
 
-1. Atomic Stock Management & Transactions
-To prevent overselling during high-traffic social media spikes (e.g., viral TikTok clips), the checkout page uses a Firestore Transaction. Before completing an order, the system locks the product documents, verifies that stockQuantity >= requestedQuantity, decrements the stock, and creates the order document in a single atomic database operation.
+### 1. 🖼️ Custom Frame Sizes & Dynamic Price Matrix
+- Admins can toggle frame size support for specific products and select supported sizes (`Mini Frame`, `5x5 Inch`, `6x8 Inch`, `A4 Frame`, `A3 Frame`, `Polaroid Photo`) along with individual custom prices.
+- Storefront dynamically switches prices based on size selections on the product page and preserves the size choice throughout the cart and checkout pipeline.
 
-2. Dynamic 0-1-2 Role-Based Access Control (RBAC)
-The admin panel is guarded by a strict hierarchical access control system:
-Master Admin (Level 0): Ultimate operational privileges. Can manage all tables, customize permission sets, and manage other administrators. Level 0 users cannot be edited or deleted by other administrators.
-Admin (Level 1): Full management access. Can create lower-level roles and modify staff (Level 2), but is strictly barred from modifying or deleting Level 0 administrators.
-Staff / Cashier (Level 2): Restricted operational access. Can view analytics and process orders, but cannot manage users or administrative configurations.
+### 2. ⚡ Real-Time Order Notification Engine
+- The Admin Panel runs an active Firebase `onSnapshot` listener (`OrderNotifier.tsx`) attached to incoming `Pending` orders.
+- When a customer submits an order on the website, a persistent notification card slides in at the top right of the admin screen. It stays securely visible until explicitly dismissed by staff.
 
-3. Non-Blocking Image Uploads
-To stay within free-tier quotas, the system avoids Firebase Storage and utilizes Cloudinary. Images uploaded through the admin panel are transferred directly to Cloudinary via unsigned frontend presets, and only the secure URL strings are saved to Firestore, keeping operational costs at $0.
+### 3. 🛍️ Atomic Stock & Transactional Checkout
+- Uses Firestore `runTransaction` to prevent overselling. Before creating an order, stock is locked, verified, decremented, and the order document is recorded in a single atomic database operation.
+- Supports **Cash on Delivery (COD)**, **Bank Transfer** (with slip upload), and **Card Payments**.
+- Allows guest checkouts with optional inline account creation for tracking order status.
+
+### 4. 📬 Customer Inquiry & Custom Orders Messaging System
+- Integrated contact & custom inquiry form pushing customer messages to the database.
+- Dedicated Admin Messages view (`/messages`) with read/unread statuses, filtering, and a live unread badge count in the admin sidebar.
+- Protected by a granular `"view messages"` RBAC permission.
+
+### 5. 🛡️ Dynamic Role-Based Access Control (RBAC)
+- Multi-tier administrative user system:
+  - **Level 0 (Master Admin)**: Full system control, role creation, and permission configuration.
+  - **Level 1 (Admin)** & **Level 2 (Staff)**: Granular permission checking (e.g., `view dashboard`, `manage orders`, `manage products`, `manage staff`, `manage roles`, `view messages`).
+
+---
+
+## 💻 Local Development Setup
+
+### Prerequisites
+- **Node.js**: v18.x or higher
+- **npm**: v9.x or higher
+
+### 1. Clone Repository
+```bash
+git clone https://github.com/V-Ashen/colour-eye-shop.git
+cd colour-eye-shop
+```
+
+### 2. Install Dependencies
+```bash
+# Install Website Dependencies
+cd website
+npm install
+
+# Install Admin Panel Dependencies
+cd ../admin-panel
+npm install
+```
+
+### 3. Environment Variables
+Create a `.env.local` file inside both `website/` and `admin-panel/` with your Firebase and Cloudinary credentials:
+
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+```
+
+### 4. Run Development Servers
+```bash
+# Run Website (Port 3000)
+cd website
+npm run dev
+
+# Run Admin Panel (Port 3001)
+cd ../admin-panel
+npm run dev
+```
+
+Open `http://localhost:3000` for the Storefront and `http://localhost:3001` for the Admin Dashboard.
+
+---
+
+## 📜 License
+
+This project is proprietary and maintained for **Colour Eye**. All rights reserved.
