@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 const policies = [
   {
     title: "Transparent Pricing",
@@ -56,7 +58,13 @@ export default function AboutSection() {
         </p>
 
         {/* Heading with ghosted monogram */}
-        <div className="relative inline-block mb-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative inline-block mb-6"
+        >
           <span
             aria-hidden="true"
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[140px] font-light text-[var(--accent)] opacity-5 leading-none select-none pointer-events-none whitespace-nowrap"
@@ -71,13 +79,19 @@ export default function AboutSection() {
             Story &amp;{" "}
             <em className="not-italic font-normal italic">Commitment</em>
           </h2>
-        </div>
+        </motion.div>
 
         {/* Gold divider */}
         <div className="w-10 h-px bg-[var(--accent)] opacity-70 mb-6 shadow-[0_0_8px_var(--accent-glow)]" aria-hidden="true" />
 
         {/* Story — two columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-12 mb-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-12 mb-10"
+        >
           <p className="text-sm text-[var(--muted)] leading-relaxed">
             Colour Eye was born from a passion for bringing the most elegant,
             trend-setting fashion jewellery to Sri Lanka. We believe accessories are
@@ -89,10 +103,16 @@ export default function AboutSection() {
             affordable pieces that empower you to shine. Every item is hand-picked
             to meet our rigorous standards of quality and durability.
           </p>
-        </div>
+        </motion.div>
 
         {/* Stats strip */}
-        <div className="grid grid-cols-3 divide-x divide-[var(--border)] border border-[var(--border)] rounded-xl overflow-hidden mb-10">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="grid grid-cols-3 divide-x divide-[var(--border)] border border-[var(--border)] rounded-xl overflow-hidden mb-10"
+        >
           {stats.map(({ value, label }) => (
             <div key={label} className="flex flex-col items-center py-4 bg-black/5">
               <span
@@ -106,14 +126,20 @@ export default function AboutSection() {
               </span>
             </div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Trust policies */}
         <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-5" style={{ textShadow: "0 0 8px var(--accent-glow)" }}>
           Our Trust Policies
         </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-[var(--border)] border border-[var(--border)] rounded-xl overflow-hidden">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-[var(--border)] border border-[var(--border)] rounded-xl overflow-hidden"
+        >
           {policies.map(({ title, body, icon }) => (
             <div
               key={title}
@@ -132,7 +158,7 @@ export default function AboutSection() {
               <p className="text-xs text-[var(--muted)] leading-relaxed">{body}</p>
             </div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>

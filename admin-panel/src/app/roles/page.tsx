@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-hot-toast";
 
 import { useState, useEffect } from "react";
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "firebase/firestore"; // Added updateDoc, deleteDoc
@@ -36,7 +37,7 @@ export default function RolesPage() {
   const handleCreateRole = async (e: React.FormEvent) => {
     e.preventDefault();
     if (roleCode !== 0 && !hasPermission("manage roles")) { // Only Master Admin can create/edit roles
-        alert("Permission Denied: Only Master Admin can create/manage roles.");
+        toast.error("Permission Denied: Only Master Admin can create/manage roles.");
         return;
     }
     setLoading(true);
@@ -46,11 +47,11 @@ export default function RolesPage() {
         level: Number(level),
         permissions: selectedPerms
       });
-      alert("Role Created!");
+      toast.success("Role Created!");
       setRoleName(""); setSelectedPerms([]); setLevel("2");
       fetchRoles();
     } catch (error) {
-      alert("Failed to create role");
+      toast.error("Failed to create role");
       console.error(error);
     }
     setLoading(false);
@@ -59,7 +60,7 @@ export default function RolesPage() {
   // --- New: Edit Functionality ---
   const handleEditRoleClick = (role: any) => {
     if (roleCode !== 0 && !hasPermission("manage roles")) {
-        alert("Permission Denied: Only Master Admin can create/manage roles.");
+        toast.error("Permission Denied: Only Master Admin can create/manage roles.");
         return;
     }
     setEditingRole(role);
@@ -71,7 +72,7 @@ export default function RolesPage() {
   const handleUpdateRole = async (e: React.FormEvent) => {
     e.preventDefault();
     if (roleCode !== 0 && !hasPermission("manage roles")) {
-        alert("Permission Denied: Only Master Admin can create/manage roles.");
+        toast.error("Permission Denied: Only Master Admin can create/manage roles.");
         return;
     }
     if (!editingRole) return;
@@ -82,11 +83,11 @@ export default function RolesPage() {
         level: Number(level),
         permissions: selectedPerms
       });
-      alert("Role Updated!");
+      toast.success("Role Updated!");
       setRoleName(""); setSelectedPerms([]); setLevel("2"); setEditingRole(null);
       fetchRoles();
     } catch (error) {
-      alert("Failed to update role");
+      toast.error("Failed to update role");
       console.error(error);
     }
     setLoading(false);
@@ -94,21 +95,21 @@ export default function RolesPage() {
 
   const handleDeleteRole = async (roleId: string, roleName: string, roleLevel: number) => {
     if (roleCode !== 0 && !hasPermission("manage roles")) {
-        alert("Permission Denied: Only Master Admin can create/manage roles.");
+        toast.error("Permission Denied: Only Master Admin can create/manage roles.");
         return;
     }
     if (roleLevel === 0 || roleLevel === 1) { // Prevent deleting Master Admin or default Admin roles
-      alert("Cannot delete core admin roles (Level 0 or 1).");
+      toast.error("Cannot delete core admin roles (Level 0 or 1).");
       return;
     }
     if (confirm(`Are you sure you want to delete the role "${roleName}"? This cannot be undone.`)) {
       setLoading(true);
       try {
         await deleteDoc(doc(db, "roles", roleId));
-        alert("Role Deleted!");
+        toast.success("Role Deleted!");
         fetchRoles();
       } catch (error) {
-        alert("Failed to delete role");
+        toast.error("Failed to delete role");
         console.error(error);
       }
       setLoading(false);

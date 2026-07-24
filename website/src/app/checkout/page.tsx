@@ -9,6 +9,7 @@ import { collection, doc, runTransaction, setDoc } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth"; // For inline registration
 import { Landmark, CreditCard, Banknote, Upload, ImagePlus, X } from "lucide-react";
 import { CldUploadWidget } from "next-cloudinary";
+import { toast } from "react-hot-toast";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -66,16 +67,16 @@ export default function CheckoutPage() {
 
     // Delivery Details Validation
     if (!email.trim() || !fullName.trim() || !phone.trim() || !address.trim()) {
-      return alert("Please fill in all required Delivery Details in Step 1.");
+      return toast.error("Please fill in all required Delivery Details in Step 1.");
     }
 
     // Payment Validation
-    if (paymentMethod === "bank" && !receiptFile) return alert("Please upload your bank receipt slip!");
-    if (paymentMethod === "card" && (!cardNumber || !cardExpiry || !cardCvv || !cardName)) return alert("Please fill in all credit card details!");
+    if (paymentMethod === "bank" && !receiptFile) return toast.error("Please upload your bank receipt slip!");
+    if (paymentMethod === "card" && (!cardNumber || !cardExpiry || !cardCvv || !cardName)) return toast.error("Please fill in all credit card details!");
 
     // Customer Images Validation
     if (needsCustomerImages && customerImages.length === 0) {
-      return alert("Some items in your cart require reference pictures. Please upload them in Step 2!");
+      return toast.error("Some items in your cart require reference pictures. Please upload them in Step 2!");
     }
 
     setLoading(true);
@@ -89,7 +90,7 @@ export default function CheckoutPage() {
       if (!user && createAccount) {
         if (password.length < 6) {
           setLoading(false);
-          return alert("Password must be at least 6 characters.");
+          return toast.error("Password must be at least 6 characters.");
         }
         try {
           const userCredential = await createUserWithEmailAndPassword(auth, currentEmail, password);
@@ -103,7 +104,7 @@ export default function CheckoutPage() {
           });
         } catch (authError: any) {
           setLoading(false);
-          return alert(`Account creation failed: ${authError.message}`);
+          return toast.error(`Account creation failed: ${authError.message}`);
         }
       }
 
@@ -139,7 +140,17 @@ export default function CheckoutPage() {
           customerName: fullName,
           customerPhone: phone,
           shippingAddress: address,
-          items: cart,
+          items: cart.map(item => ({
+            id: item.id,
+            originalProductId: item.originalProductId,
+            name: item.name,
+            price: item.price,
+            image: item.image,
+            maxStock: item.maxStock,
+            quantity: item.quantity,
+            requiresCustomerImage: item.requiresCustomerImage || false,
+            selectedSize: item.selectedSize || null,
+          })),
           customerImages: needsCustomerImages ? customerImages : [], // Include uploaded images
           subtotalAmount: cartTotal(),
           deliveryCharge: deliveryCharge(),
@@ -169,12 +180,13 @@ export default function CheckoutPage() {
         console.error("Email failed:", emailError);
       }
 
+      toast.success("Order placed successfully!");
       setIsSuccess(true);
       clearCart();
       router.push(`/success?orderId=${createdOrderId}`);
     } catch (error: any) {
       console.error("Checkout failed: ", error);
-      alert(error.message || "Checkout failed. Please try again.");
+      toast.error(error.message || "Checkout failed. Please try again.");
       setLoading(false);
     }
   };

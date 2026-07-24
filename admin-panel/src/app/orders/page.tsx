@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-hot-toast";
 
 import { useEffect, useState } from "react";
 import { collection, getDocs, doc, updateDoc, query, orderBy } from "firebase/firestore";
@@ -78,7 +79,7 @@ export default function OrderManagementPage() {
       );
     } catch (error) {
       console.error("Error updating status:", error);
-      alert("Failed to update status.");
+      toast.error("Failed to update status.");
     }
   };
 

@@ -5,6 +5,7 @@ import { auth, db } from "@/lib/firebase";
 import { signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useAuthStore } from "@/store/authStore";
+import { toast } from "react-hot-toast";
 
 export default function AuthModal() {
   const { isAuthModalOpen, setAuthModalOpen } = useAuthStore();
@@ -35,9 +36,9 @@ export default function AuthModal() {
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       await saveUserToDB(result.user);
-      setAuthModalOpen(false);
+      toast.success("Successfully logged in!");
     } catch (error) {
-      alert("Authentication failed!");
+      toast.error("Authentication failed!");
     } finally {
       setLoading(false);
     }
@@ -54,8 +55,9 @@ export default function AuthModal() {
         await saveUserToDB(result.user);
       }
       setAuthModalOpen(false);
+      toast.success("Successfully authenticated!");
     } catch (error: any) {
-      alert(error.message);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { toast } from "react-hot-toast";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -120,35 +121,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Follow Us */}
-          <div>
-            <h3 className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-4" style={{ textShadow: "0 0 8px var(--accent-glow)" }}>
-              Follow Us
-            </h3>
-            <ul className="space-y-3">
-              {[
-                { label: "Facebook", icon: "/icons/facebook.svg", href: socials.facebook },
-                { label: "Instagram", icon: "/icons/instagram.svg", href: socials.instagram },
-                { label: "TikTok", icon: "/icons/tiktok.svg", href: socials.tiktok },
-              ].map(({ label, icon, href }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2.5 text-xs text-[var(--muted)] hover:text-[var(--accent)] tracking-wide transition-colors duration-150 group"
-                  >
-                    <span className="w-6 h-6 flex items-center justify-center rounded-full border border-[var(--border)] group-hover:border-[var(--accent)] transition-colors duration-150">
-                      <Image src={icon} alt={label} width={13} height={13} className="opacity-70 group-hover:opacity-100" />
-                    </span>
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
+          {/* Contact Us */}
           <div>
             <h3 className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-4" style={{ textShadow: "0 0 8px var(--accent-glow)" }}>
               Contact Us
@@ -161,23 +134,49 @@ export default function Footer() {
               </p>
               <a
                 href="mailto:chamudigunawardana071@gmail.com"
-                className="text-xs text-[var(--muted)] hover:text-[var(--accent)] tracking-wide transition-colors duration-150 block"
+                className="text-xs text-[var(--muted)] hover:text-[var(--accent)] tracking-wide transition-colors duration-150 block break-all"
               >
                 chamudigunawardana071@gmail.com
               </a>
             </address>
           </div>
 
+          {/* Newsletter / Highlight */}
+          <div className="md:col-span-1">
+            <h3 className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-4" style={{ textShadow: "0 0 8px var(--accent-glow)" }}>
+              Join Our Newsletter
+            </h3>
+            <p className="text-xs text-[var(--muted)] leading-relaxed mb-4">
+              Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
+            </p>
+            <form onSubmit={(e) => { e.preventDefault(); toast.success("Subscribed successfully!"); }} className="flex">
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                required
+                className="w-full bg-transparent border border-[var(--border)] border-r-0 rounded-l-full px-4 py-2.5 text-xs text-[var(--foreground)] focus:border-[var(--accent)] outline-none transition"
+              />
+              <button 
+                type="submit"
+                className="bg-[var(--accent)] text-[var(--background)] px-4 py-2.5 rounded-r-full text-[10px] font-bold uppercase tracking-widest hover:bg-[var(--foreground)] transition shadow-sm"
+              >
+                Join
+              </button>
+            </form>
+          </div>
+
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-[var(--border)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div className="border-t border-[var(--border)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[11px] text-[var(--muted)] opacity-70 tracking-wide">
             &copy; {currentYear} Colour Eye. All rights reserved.
           </p>
-          <p className="text-[11px] text-[var(--muted)] opacity-50 tracking-wide">
-            Crafted with care in Sri Lanka
-          </p>
+          <div className="flex gap-4 items-center">
+            <span className="text-[11px] text-[var(--muted)] opacity-50 tracking-wide">
+              Crafted with care in Sri Lanka
+            </span>
+          </div>
         </div>
 
       </div>

@@ -190,8 +190,12 @@ export default function ServicesSection() {
           </div>
 
           {loadingReviews ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {Array.from({ length: 3 }).map((_, i) => <SkeletonReview key={i} />)}
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:snap-none sm:pb-0 no-scrollbar">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="shrink-0 w-[85vw] sm:w-auto snap-center">
+                  <SkeletonReview />
+                </div>
+              ))}
             </div>
           ) : reviews.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-20 text-center">
@@ -204,7 +208,7 @@ export default function ServicesSection() {
               <p className="text-sm text-[var(--muted)]">Be the first to leave one!</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:snap-none sm:pb-0 no-scrollbar">
               {reviews.map((review, index) => (
                 <motion.div 
                   key={review.id}
@@ -212,6 +216,7 @@ export default function ServicesSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="shrink-0 w-[85vw] sm:w-auto snap-center"
                 >
                   <ReviewCard {...review} />
                 </motion.div>

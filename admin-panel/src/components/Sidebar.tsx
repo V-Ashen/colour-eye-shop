@@ -20,7 +20,7 @@ import {
   MessageSquare
 } from "lucide-react";
 
-export default function Sidebar() {
+export default function Sidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
   const { user, hasPermission, roleCode } = useAdminAuthStore();
   const [pendingCount, setPendingCount] = useState(0);
@@ -112,7 +112,7 @@ export default function Sidebar() {
               if (roleCode === 0 || hasPermission(item.permission)) {
                 const isActive = pathname === item.path || (item.path === "/products" && pathname.startsWith("/products"));
                 return (
-                  <Link key={item.name} href={item.path}>
+                  <Link key={item.name} href={item.path} onClick={() => onClose && onClose()}>
                     <div className={`flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 cursor-pointer ${
                       isActive ? "bg-[#C9A84C] text-white shadow-md shadow-[#C9A84C]/20" : "hover:bg-[#1A1A1E] hover:text-slate-200"
                     }`}>
@@ -145,7 +145,7 @@ export default function Sidebar() {
               if (roleCode === 0 || hasPermission(item.permission)) {
                 const isActive = pathname === item.path;
                 return (
-                  <Link key={item.name} href={item.path}>
+                  <Link key={item.name} href={item.path} onClick={() => onClose && onClose()}>
                     <div className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 cursor-pointer ${
                       isActive ? "bg-[#C9A84C] text-white shadow-md shadow-[#C9A84C]/20" : "hover:bg-[#1A1A1E] hover:text-slate-200"
                     }`}>

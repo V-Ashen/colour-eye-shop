@@ -80,13 +80,16 @@ export default function Navbar() {
           {/* Desktop auth */}
           <div className="hidden md:flex items-center gap-3 border-r border-[var(--border)] pr-4 mr-2">
             {user ? (
-              <div className="flex items-center gap-3">
-                <span className="text-[11px] font-medium tracking-wide text-[var(--muted)] truncate max-w-[140px]">
-                  {user.email}
-                </span>
+              <div className="flex items-center gap-4">
+                <Link
+                  href="/profile"
+                  className="text-[10px] font-bold uppercase tracking-widest text-[var(--foreground)] hover:text-[var(--accent)] transition flex items-center gap-1.5"
+                >
+                  <UserIcon size={14} /> Profile
+                </Link>
                 <button
                   onClick={handleLogout}
-                  className="text-[10px] font-bold uppercase tracking-widest text-[var(--foreground)] hover:text-[var(--accent)] transition"
+                  className="text-[10px] font-bold uppercase tracking-widest text-[var(--muted)] hover:text-red-400 transition"
                 >
                   Log out
                 </button>
@@ -161,12 +164,20 @@ export default function Navbar() {
               <div className="flex flex-col gap-3">
                 <p className="text-[10px] uppercase tracking-widest text-[var(--muted)]">Signed in as</p>
                 <p className="text-sm font-semibold text-[var(--foreground)] truncate">{user.email}</p>
-                <button
-                  onClick={() => { setIsMobileMenuOpen(false); handleLogout(); }}
-                  className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[var(--foreground)] border border-[var(--border)] hover:bg-black/10 hover:border-[var(--foreground)] px-4 py-2.5 rounded-full w-fit transition mt-2"
-                >
-                  <LogOut size={14} /> Log out
-                </button>
+                <div className="flex items-center gap-3 mt-2">
+                  <button
+                    onClick={() => handleMobileNav("/profile")}
+                    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[var(--background)] bg-[var(--foreground)] hover:bg-[var(--accent)] px-4 py-2.5 rounded-full transition"
+                  >
+                    <UserIcon size={14} /> Profile
+                  </button>
+                  <button
+                    onClick={() => { setIsMobileMenuOpen(false); handleLogout(); }}
+                    className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[var(--foreground)] border border-[var(--border)] hover:bg-black/10 hover:border-[var(--foreground)] px-4 py-2.5 rounded-full transition"
+                  >
+                    <LogOut size={14} /> Log out
+                  </button>
+                </div>
               </div>
             ) : (
               <button

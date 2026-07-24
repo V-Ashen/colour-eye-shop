@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-hot-toast";
 
 import { useState, useEffect } from "react";
 import { collection, addDoc, getDocs } from "firebase/firestore";
@@ -75,7 +76,7 @@ export default function AddProductPage() {
 
   // Handle Inline Custom Category Creation
   const handleAddNewCategory = async () => {
-    if (!newCategoryName.trim()) return alert("Please enter a valid category name!");
+    if (!newCategoryName.trim()) return toast.error("Please enter a valid category name!");
     setAddingCategory(true);
     try {
       const newCatRef = await addDoc(collection(db, "categories"), {
@@ -89,10 +90,10 @@ export default function AddProductPage() {
       setCategory(newCategoryName.trim()); // Set as selected category
       setShowNewCategoryInput(false);
       setNewCategoryName("");
-      alert("New category added successfully!");
+      toast.success("New category added successfully!");
     } catch (error) {
       console.error("Error creating category:", error);
-      alert("Failed to create category.");
+      toast.error("Failed to create category.");
     } finally {
       setAddingCategory(false);
     }
@@ -102,7 +103,7 @@ export default function AddProductPage() {
     e.preventDefault();
     
     if (!name || !price || !stockQuantity || !imageUrl || !category) {
-      alert("Please fill all mandatory fields and upload an image!");
+      toast.error("Please fill all mandatory fields and upload an image!");
       return;
     }
 
@@ -125,7 +126,7 @@ export default function AddProductPage() {
         createdAt: new Date(),
       });
 
-      alert("Product Added Successfully!");
+      toast.success("Product Added Successfully!");
       
       // Reset form
       setName("");
@@ -140,7 +141,7 @@ export default function AddProductPage() {
       router.push("/products"); // Push back to product overview list
     } catch (error) {
       console.error("Error adding product: ", error);
-      alert("Failed to add product.");
+      toast.error("Failed to add product.");
     } finally {
       setLoading(false);
     }

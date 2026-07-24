@@ -12,6 +12,8 @@ interface Message {
   name: string;
   email: string;
   message: string;
+  type?: "general" | "custom";
+  orderDetails?: string;
   status: "Read" | "Unread";
   createdAt: any;
 }
@@ -103,14 +105,16 @@ export default function MessagesPage() {
 
       {/* Messages List */}
       <div className="bg-white border border-[#E0DDD6] rounded-2xl shadow-sm overflow-hidden">
-        {filteredMessages.length === 0 ? (
-          <div className="p-12 text-center text-slate-500 font-medium">No messages found.</div>
-        ) : (
+        <div className="overflow-x-auto">
+          {filteredMessages.length === 0 ? (
+            <div className="p-12 text-center text-slate-500 font-medium">No messages found.</div>
+          ) : (
           <table className="w-full text-left border-collapse">
             <thead className="bg-[#FAF9F7] border-b border-[#E0DDD6]">
               <tr>
                 <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
                 <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Customer</th>
+                <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Type</th>
                 <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider hidden md:table-cell">Snippet</th>
                 <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
                 <th className="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Action</th>
@@ -128,6 +132,13 @@ export default function MessagesPage() {
                   <td className="p-4">
                     <p className={`text-sm ${msg.status === "Unread" ? "font-bold text-[#1C1C1E]" : "font-semibold text-slate-700"}`}>{msg.name}</p>
                     <p className="text-xs text-slate-500">{msg.email}</p>
+                  </td>
+                  <td className="p-4">
+                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+                      msg.type === "custom" ? "bg-purple-100 text-purple-700" : "bg-blue-100 text-blue-700"
+                    }`}>
+                      {msg.type === "custom" ? "Custom Order" : "General"}
+                    </span>
                   </td>
                   <td className="p-4 hidden md:table-cell max-w-[200px] lg:max-w-[300px]">
                     <p className={`text-sm truncate ${msg.status === "Unread" ? "font-semibold text-[#1C1C1E]" : "text-slate-500"}`}>
@@ -164,6 +175,7 @@ export default function MessagesPage() {
             </tbody>
           </table>
         )}
+        </div>
       </div>
 
       {/* View Message Modal */}
@@ -202,6 +214,22 @@ export default function MessagesPage() {
                   <p className="text-sm font-semibold text-slate-600">{formatDate(selectedMessage.createdAt)}</p>
                 </div>
               </div>
+
+              <div className="bg-[#FAF9F7] p-4 rounded-xl border border-[#E0DDD6] mb-4">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Message Type</p>
+                <p className="text-sm font-semibold text-[#1C1C1E] capitalize">
+                  {selectedMessage.type === "custom" ? "Customized Order Request" : "General Inquiry"}
+                </p>
+              </div>
+
+              {selectedMessage.type === "custom" && selectedMessage.orderDetails && (
+                <div className="bg-[#FAF9F7] p-4 rounded-xl border border-[#E0DDD6] mb-4">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Desired Details</p>
+                  <p className="text-sm text-[#1C1C1E] whitespace-pre-wrap leading-relaxed">
+                    {selectedMessage.orderDetails}
+                  </p>
+                </div>
+              )}
 
               <div className="bg-[#FAF9F7] p-4 rounded-xl border border-[#E0DDD6]">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Message</p>

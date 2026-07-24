@@ -7,6 +7,7 @@ import CartDrawer from "@/components/CartDrawer";
 import MarketingPixels from "@/components/MarketingPixels";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
@@ -29,6 +30,7 @@ export default function RootLayout({
           {children}
           <AuthModal />
           <CartDrawer />
+          <Toaster position="bottom-right" />
         </AuthProvider>
         <Footer />
         <MarketingPixels />

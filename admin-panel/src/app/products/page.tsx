@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-hot-toast";
 
 import { useEffect, useState } from "react";
 import { collection, getDocs, doc, updateDoc, deleteDoc, query, orderBy, writeBatch } from "firebase/firestore";
@@ -106,8 +107,8 @@ export default function ManageProductsPage() {
 
   // --- Bulk Category Update (NEW) ---
   const handleBulkStatusUpdate = async (newStatus: boolean) => {
-    if (activeCategory === "All") return alert("Please select a specific category first to bulk update.");
-    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return alert("Permission Denied.");
+    if (activeCategory === "All") return toast.error("Please select a specific category first to bulk update.");
+    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return toast.error("Permission Denied.");
     
     if (confirm(`Are you sure you want to mark ALL items in "${activeCategory}" as ${newStatus ? 'Active' : 'Inactive'}?`)) {
       setLoading(true);
@@ -126,10 +127,10 @@ export default function ManageProductsPage() {
         setProducts(prev => prev.map(p => 
           p.category?.toLowerCase() === activeCategory.toLowerCase() ? { ...p, isActive: newStatus } : p
         ));
-        alert(`Bulk update complete!`);
+        toast.success(`Bulk update complete!`);
       } catch (error) {
         console.error("Bulk update failed:", error);
-        alert("Bulk update failed.");
+        toast.error("Bulk update failed.");
       } finally {
         setLoading(false);
       }
@@ -138,7 +139,7 @@ export default function ManageProductsPage() {
 
   // --- Toggle Handlers ---
   const handleToggleActive = async (product: Product) => {
-    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return alert("Permission Denied.");
+    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return toast.error("Permission Denied.");
     try {
       const newStatus = !product.isActive;
       await updateDoc(doc(db, "products", product.id), { isActive: newStatus });
@@ -149,7 +150,7 @@ export default function ManageProductsPage() {
   };
 
   const handleToggleFeatured = async (product: Product) => {
-    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return alert("Permission Denied.");
+    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return toast.error("Permission Denied.");
     try {
       const newFeatured = !product.isFeatured;
       await updateDoc(doc(db, "products", product.id), { isFeatured: newFeatured });
@@ -161,7 +162,7 @@ export default function ManageProductsPage() {
 
   // --- Edit & Delete Handlers ---
   const handleEditClick = (product: Product) => {
-    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return alert("Permission Denied.");
+    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return toast.error("Permission Denied.");
     setEditingProduct(product);
     setEditName(product.name);
     setEditPrice(String(product.price));
@@ -188,26 +189,26 @@ export default function ManageProductsPage() {
         hasFrameSizes: editHasFrameSizes,
         frameSizes: editHasFrameSizes ? editFrameSizes : [],
       });
-      alert("Product updated successfully!");
+      toast.success("Product updated successfully!");
       setIsEditModalOpen(false);
       setEditingProduct(null);
       fetchData(); 
     } catch (error) {
-      alert("Failed to update product.");
+      toast.error("Failed to update product.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteProduct = async (productId: string, productName: string) => {
-    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return alert("Permission Denied.");
+    if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return toast.error("Permission Denied.");
     if (confirm(`Are you sure you want to delete "${productName}"?`)) {
       setLoading(true);
       try {
         await deleteDoc(doc(db, "products", productId));
         setProducts(prev => prev.filter(p => p.id !== productId));
       } catch (error) {
-        alert("Failed to delete product.");
+        toast.error("Failed to delete product.");
       } finally {
         setLoading(false);
       }

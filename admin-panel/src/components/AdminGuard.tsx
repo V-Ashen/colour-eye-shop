@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-hot-toast";
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
@@ -44,7 +45,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
           } else {
             // User is logged into Auth but has a customer roleCode (99)
             if (pathname !== "/login") {
-              alert("Access Denied: Your account does not have admin privileges.");
+              toast.error("Access Denied: Your account does not have admin privileges.");
               await signOut(auth); // Log them out from the admin panel
               router.push("/login");
             }
@@ -52,7 +53,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
         } else {
           // User is logged into Auth, but no Firestore document for role info (likely deleted)
           if (pathname !== "/login") {
-            alert("Access Denied: Your admin role profile is missing.");
+            toast.error("Access Denied: Your admin role profile is missing.");
             await signOut(auth); // Force log out to clear bad state
             router.push("/login");
           }

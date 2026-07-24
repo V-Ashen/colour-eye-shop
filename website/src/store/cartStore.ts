@@ -67,7 +67,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
             maxStock: product.stockQuantity,
             quantity: 1,
             requiresCustomerImage: product.requiresCustomerImage || false,
-            selectedSize: product.selectedSize,
+            selectedSize: product.selectedSize || null,
           },
         ],
         isCartOpen: true,

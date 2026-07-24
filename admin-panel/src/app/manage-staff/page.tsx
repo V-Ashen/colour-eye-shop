@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-hot-toast";
 
 import { useState, useEffect } from "react";
 import { collection, getDocs, doc, setDoc, deleteDoc, updateDoc } from "firebase/firestore"; // Added updateDoc
@@ -55,10 +56,10 @@ export default function ManageStaffPage() {
     e.preventDefault();
     // RBAC: Only Master Admin (0) or Admin (1) with manage staff permission can add
     if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage staff"))) {
-        alert("Permission Denied: You cannot add staff members.");
+        toast.error("Permission Denied: You cannot add staff members.");
         return;
     }
-    if (!selectedRoleName) return alert("Please select a role!");
+    if (!selectedRoleName) return toast.error("Please select a role!");
     setLoading(true);
 
     try {
@@ -67,7 +68,7 @@ export default function ManageStaffPage() {
 
       // RBAC: Admin (1) cannot add Master Admin (0)
       if (roleCode === 1 && roleData.level === 0) {
-        alert("Permission Denied: Admins (Role 1) cannot create Master Admin accounts.");
+        toast.error("Permission Denied: Admins (Role 1) cannot create Master Admin accounts.");
         setLoading(false);
         return;
       }
@@ -85,11 +86,11 @@ export default function ManageStaffPage() {
         createdAt: new Date()
       });
 
-      alert("Staff Member Added!");
+      toast.success("Staff Member Added!");
       setName(""); setEmail(""); setPassword(""); setSelectedRoleName("");
       fetchData(); // Refresh table
     } catch (error: any) {
-      alert("Error adding staff: " + error.message);
+      toast.error("Error adding staff: " + error.message);
     }
     setLoading(false);
   };
@@ -98,12 +99,12 @@ export default function ManageStaffPage() {
   const handleEditClick = (user: any) => {
     // RBAC: Admin (1) cannot edit Master Admin (0)
     if (roleCode === 1 && user.roleCode === 0) {
-      alert("Permission Denied: Admins (Role 1) cannot edit Master Admin (Role 0).");
+      toast.error("Permission Denied: Admins (Role 1) cannot edit Master Admin (Role 0).");
       return;
     }
     // RBAC: Staff (2) cannot edit anyone
     if (roleCode === 2) {
-      alert("Permission Denied: Staff (Role 2) cannot edit staff members.");
+      toast.error("Permission Denied: Staff (Role 2) cannot edit staff members.");
       return;
     }
 
@@ -120,11 +121,11 @@ export default function ManageStaffPage() {
 
     // RBAC check again before update (redundancy for safety)
     if (roleCode === 1 && editingUser.roleCode === 0) {
-      alert("Permission Denied: Admins (Role 1) cannot update Master Admin (Role 0).");
+      toast.error("Permission Denied: Admins (Role 1) cannot update Master Admin (Role 0).");
       return;
     }
     if (roleCode === 2) {
-      alert("Permission Denied: Staff (Role 2) cannot update staff members.");
+      toast.error("Permission Denied: Staff (Role 2) cannot update staff members.");
       return;
     }
 
@@ -148,11 +149,11 @@ export default function ManageStaffPage() {
       // If password changes, you'd need to re-authenticate the user for that change.
       // This part is out of scope for a quick demo, but know it's a future consideration.
 
-      alert("Staff Member Updated!");
+      toast.success("Staff Member Updated!");
       setEditingUser(null); setName(""); setEmail(""); setPassword(""); setSelectedRoleName("");
       fetchData();
     } catch (error: any) {
-      alert("Error updating staff: " + error.message);
+      toast.error("Error updating staff: " + error.message);
     }
     setLoading(false);
   };
@@ -162,12 +163,12 @@ export default function ManageStaffPage() {
     // RBAC: Only Master Admin (0) can delete Master Admin (0)
     // RBAC: Admin (1) cannot delete Master Admin (0)
     if (userToDelete.roleCode === 0 && roleCode !== 0) {
-      alert("Permission Denied: Only Master Admin can delete other Master Admins.");
+      toast.error("Permission Denied: Only Master Admin can delete other Master Admins.");
       return;
     }
     // RBAC: Staff (2) cannot delete anyone
     if (roleCode === 2) {
-      alert("Permission Denied: Staff (Role 2) cannot delete staff members.");
+      toast.error("Permission Denied: Staff (Role 2) cannot delete staff members.");
       return;
     }
 
@@ -176,10 +177,10 @@ export default function ManageStaffPage() {
       try {
         await deleteDoc(doc(db, "users", userToDelete.id));
         // You would also delete the user from Firebase Auth here in a full system
-        alert("Staff Member Removed!");
+        toast.error("Staff Member Removed!");
         fetchData();
       } catch (error: any) {
-        alert("Error deleting staff: " + error.message);
+        toast.error("Error deleting staff: " + error.message);
       }
       setLoading(false);
     }

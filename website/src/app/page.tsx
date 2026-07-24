@@ -6,6 +6,7 @@ import HeroSlider from "@/components/HeroSlider"; // NEW
 import ProductGridPaginated from "@/components/ProductGridPaginated"; // NEW
 import CustomFramesGuide from "@/components/CustomFramesGuide"; // NEW
 import ServicesSection from "@/components/ServicesSection";
+import GallerySection from "@/components/GallerySection";
 
 // No direct getProducts call here anymore, ProductGridPaginated handles it
 export default async function ShopHome() {
@@ -22,7 +23,10 @@ export default async function ShopHome() {
       {/* 3. Custom Frames Guide */}
       <CustomFramesGuide />
 
-      {/* 4. Services Section (Why Choose Us & Reviews) */}
+      {/* 4. Previous Works Gallery */}
+      <GallerySection />
+
+      {/* 5. Services Section (Why Choose Us & Reviews) */}
       <ServicesSection />
 
     </main>
