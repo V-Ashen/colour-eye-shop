@@ -41,7 +41,7 @@ colour-eye-shop/
 │
 └── admin-panel/                # Secure Back-End Management Dashboard
     ├── src/
-    │   ├── app/                # Dashboard, Orders, Products, Messages, Staff, Roles Management
+    │   ├── app/                # Dashboard, Orders, Products, Messages, Staff, Roles Management, Settings
     │   ├── components/         # AdminGuard, Sidebar, OrderNotifier (Real-Time WebSocket Alerts)
     │   ├── lib/                # Firebase Client & Admin Config
     │   └── store/              # Admin Auth & Permission Control Store
@@ -70,7 +70,15 @@ colour-eye-shop/
 - Dedicated Admin Messages view (`/messages`) with read/unread statuses, filtering, and a live unread badge count in the admin sidebar.
 - Protected by a granular `"view messages"` RBAC permission.
 
-### 5. 🛡️ Dynamic Role-Based Access Control (RBAC)
+### 5. 🎨 Gallery & Previous Works Portfolio
+- Full-page dedicated `/gallery` to showcase past customer orders, custom frames, and aesthetic pieces.
+- Real-time admin control within `settings/page.tsx` for easy upload, management, and SEO alt-text tagging of portfolio images.
+
+### 6. 📱 Mobile-First UI/UX Optimizations
+- **Storefront**: Custom 100dvh cart drawer mapping, horizontal swipe-scroll testimonials, and optimized dynamic grids.
+- **Admin Panel**: Side drawer mobile navigation, horizontally scrollable data tables (`overflow-x-auto`), and optimized touch targets.
+
+### 7. 🛡️ Dynamic Role-Based Access Control (RBAC)
 - Multi-tier administrative user system:
   - **Level 0 (Master Admin)**: Full system control, role creation, and permission configuration.
   - **Level 1 (Admin)** & **Level 2 (Staff)**: Granular permission checking (e.g., `view dashboard`, `manage orders`, `manage products`, `manage staff`, `manage roles`, `view messages`).
