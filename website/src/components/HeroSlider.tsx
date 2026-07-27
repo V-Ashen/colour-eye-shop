@@ -5,9 +5,24 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const banners = [
-  "/banners/banner1.png",
-  "/banners/banner2.png",
-  "/banners/banner3.png",
+  {
+    image: "/banners/banner1-clean.png",
+    title: "Frame Your Best Moments.",
+    subtitle: "Custom photo frames crafted with love in Sri Lanka.",
+    buttonText: "SHOP FRAMES"
+  },
+  {
+    image: "/banners/banner2-clean.png",
+    title: "Make Their Birthday Unforgettable.",
+    subtitle: "Personalized birthday cards, gift hampers & custom frames.",
+    buttonText: "SHOP BIRTHDAY GIFTS"
+  },
+  {
+    image: "/banners/banner3-clean.png",
+    title: "Gifting, Reimagined.",
+    subtitle: "From custom frames to curated hampers — every gift tells your story.",
+    buttonText: "EXPLORE ALL GIFTS"
+  }
 ];
 
 export default function HeroSlider() {
@@ -39,14 +54,50 @@ export default function HeroSlider() {
           className="absolute inset-0"
         >
           <Image
-            src={banners[currentBanner]}
-            alt={`Hero Banner ${currentBanner + 1}`}
+            src={banners[currentBanner].image}
+            alt={banners[currentBanner].title}
             fill
             style={{ objectFit: "cover", objectPosition: "center" }}
             priority={currentBanner === 0}
             className="transition-transform duration-[10000ms] ease-linear scale-100 hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0f1115]/90 via-black/40 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+          
+          <div className="absolute inset-0 flex flex-col justify-center items-start px-6 sm:px-16 md:px-24">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase text-[var(--accent)] mb-2 sm:mb-4 drop-shadow-md"
+            >
+              Colour Eye
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-3xl sm:text-5xl md:text-6xl text-white leading-tight mb-4 max-w-2xl drop-shadow-lg"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
+              {banners[currentBanner].title}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-sm sm:text-base md:text-lg text-slate-200 mb-8 max-w-lg drop-shadow-md"
+            >
+              {banners[currentBanner].subtitle}
+            </motion.p>
+            <motion.button
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              className="bg-[var(--background)] text-[var(--foreground)] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[var(--accent)] hover:text-white transition-all shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+            >
+              {banners[currentBanner].buttonText}
+            </motion.button>
+          </div>
         </motion.div>
       </AnimatePresence>
 

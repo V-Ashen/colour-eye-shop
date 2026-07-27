@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const policies = [
   {
@@ -84,48 +85,55 @@ export default function AboutSection() {
         {/* Gold divider */}
         <div className="w-10 h-px bg-[var(--accent)] opacity-70 mb-6 shadow-[0_0_8px_var(--accent-glow)]" aria-hidden="true" />
 
-        {/* Story — two columns */}
+        {/* Story — two columns with Image */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-12 mb-10"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
         >
-          <p className="text-sm text-[var(--muted)] leading-relaxed">
-            Colour Eye was born from a passion for bringing the most elegant,
-            trend-setting fashion jewellery to Sri Lanka. We believe accessories are
-            more than additions to an outfit — they are expressions of individuality,
-            confidence, and personal style.
-          </p>
-          <p className="text-sm text-[var(--muted)] leading-relaxed">
-            Our mission is to offer a curated selection of highly aesthetic and
-            affordable pieces that empower you to shine. Every item is hand-picked
-            to meet our rigorous standards of quality and durability.
-          </p>
-        </motion.div>
-
-        {/* Stats strip */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="grid grid-cols-3 divide-x divide-[var(--border)] border border-[var(--border)] rounded-xl overflow-hidden mb-10"
-        >
-          {stats.map(({ value, label }) => (
-            <div key={label} className="flex flex-col items-center py-4 bg-black/5">
-              <span
-                className="text-[1.8rem] font-light text-[var(--accent)] leading-none"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
-                {value}
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.12em] text-[var(--muted)] mt-1">
-                {label}
-              </span>
+          <div className="space-y-6">
+            <p className="text-sm text-[var(--muted)] leading-relaxed">
+              Colour Eye was born from a passion for bringing the most elegant,
+              trend-setting fashion jewellery to Sri Lanka. We believe accessories are
+              more than additions to an outfit — they are expressions of individuality,
+              confidence, and personal style.
+            </p>
+            <p className="text-sm text-[var(--muted)] leading-relaxed">
+              Our mission is to offer a curated selection of highly aesthetic and
+              affordable pieces that empower you to shine. Every item is hand-picked
+              to meet our rigorous standards of quality and durability.
+            </p>
+            
+            {/* Stats strip moved here for better layout */}
+            <div className="grid grid-cols-3 divide-x divide-[var(--border)] border border-[var(--border)] rounded-xl overflow-hidden mt-8">
+              {stats.map(({ value, label }) => (
+                <div key={label} className="flex flex-col items-center py-4 bg-black/5">
+                  <span
+                    className="text-xl md:text-2xl font-light text-[var(--accent)] leading-none"
+                    style={{ fontFamily: "var(--font-serif)" }}
+                  >
+                    {value}
+                  </span>
+                  <span className="text-[9px] text-center px-1 uppercase tracking-[0.12em] text-[var(--muted)] mt-1">
+                    {label}
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div className="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl border border-[var(--border)]">
+            <Image 
+              src="/about-us.jpg" 
+              alt="Colour Eye Lifestyle" 
+              fill 
+              style={{ objectFit: "cover" }}
+              className="hover:scale-105 transition-transform duration-700 ease-in-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0f1115]/60 to-transparent" />
+          </div>
         </motion.div>
 
         {/* Trust policies */}
@@ -137,25 +145,25 @@ export default function AboutSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-[var(--border)] border border-[var(--border)] rounded-xl overflow-hidden"
         >
           {policies.map(({ title, body, icon }) => (
             <div
               key={title}
-              className="p-5 bg-black/5 hover:bg-black/10 transition-colors duration-200 group"
+              className="p-5 bg-black/5 hover:bg-black/10 transition-colors duration-200 group flex flex-col items-center text-center sm:items-start sm:text-left"
             >
               {/* Icon circle */}
-              <div className="w-7 h-7 rounded-full bg-black/10 border border-[var(--border)] flex items-center justify-center mb-3 flex-shrink-0 group-hover:border-[var(--accent)] transition-colors shadow-sm">
+              <div className="w-8 h-8 rounded-full bg-[var(--accent)]/10 border border-[var(--accent)]/30 flex items-center justify-center mb-4 flex-shrink-0 group-hover:bg-[var(--accent)] group-hover:text-[var(--background)] transition-all shadow-sm">
                 {icon}
               </div>
               <h4
-                className="text-sm font-semibold text-[var(--foreground)] mb-1 leading-snug tracking-wide"
+                className="text-sm font-semibold text-[var(--foreground)] mb-1.5 leading-snug tracking-wide"
                 style={{ fontFamily: "var(--font-serif)" }}
               >
                 {title}
               </h4>
-              <p className="text-xs text-[var(--muted)] leading-relaxed">{body}</p>
+              <p className="text-[11px] text-[var(--muted)] leading-relaxed">{body}</p>
             </div>
           ))}
         </motion.div>

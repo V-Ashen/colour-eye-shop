@@ -88,6 +88,7 @@ export default function ProfilePage() {
             >
               Order History
             </button>
+
             <button 
               onClick={() => setActiveTab("Settings")}
               className={`text-left px-4 py-3 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${

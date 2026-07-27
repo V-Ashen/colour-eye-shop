@@ -17,7 +17,8 @@ import {
   Settings,
   LogOut,
   Hexagon, // Logo icon
-  MessageSquare
+  MessageSquare,
+  Mail
 } from "lucide-react";
 
 export default function Sidebar({ onClose }: { onClose?: () => void }) {
@@ -69,6 +70,7 @@ export default function Sidebar({ onClose }: { onClose?: () => void }) {
     { name: "Orders & Billing", icon: ShoppingCart, path: "/orders", permission: "manage orders", badge: pendingCount },
     { name: "Products", icon: Tag, path: "/products", permission: "manage products" },
     { name: "Messages", icon: MessageSquare, path: "/messages", permission: "view messages", badge: unreadMessages },
+    { name: "Newsletter", icon: Mail, path: "/newsletter", permission: "view dashboard" },
   ];
 
   const managementLinks = [

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { toast } from "react-hot-toast";
 
@@ -15,6 +15,8 @@ export default function Footer() {
     instagram: "https://www.instagram.com/accessories_by_dn_?igsh=bjNqbDV5MHBIOWlt",
     tiktok: "https://www.tiktok.com/@dnfashionjewellery25?_r=1&_t=ZS-972Dv3H8MdD"
   });
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -149,18 +151,46 @@ export default function Footer() {
             <p className="text-xs text-[var(--muted)] leading-relaxed mb-4">
               Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
             </p>
-            <form onSubmit={(e) => { e.preventDefault(); toast.success("Subscribed successfully!"); }} className="flex">
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (!newsletterEmail.trim()) return;
+                setNewsletterLoading(true);
+                try {
+                  // Check for duplicate
+                  const existing = await getDocs(query(collection(db, "newsletter"), where("email", "==", newsletterEmail.trim().toLowerCase())));
+                  if (!existing.empty) {
+                    toast.error("You're already subscribed!");
+                  } else {
+                    await addDoc(collection(db, "newsletter"), {
+                      email: newsletterEmail.trim().toLowerCase(),
+                      subscribedAt: new Date(),
+                    });
+                    toast.success("You're subscribed! 🎉");
+                    setNewsletterEmail("");
+                  }
+                } catch (err) {
+                  toast.error("Something went wrong. Please try again.");
+                } finally {
+                  setNewsletterLoading(false);
+                }
+              }}
+              className="flex"
+            >
               <input 
                 type="email" 
                 placeholder="Enter your email" 
                 required
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
                 className="w-full bg-transparent border border-[var(--border)] border-r-0 rounded-l-full px-4 py-2.5 text-xs text-[var(--foreground)] focus:border-[var(--accent)] outline-none transition"
               />
               <button 
                 type="submit"
-                className="bg-[var(--accent)] text-[var(--background)] px-4 py-2.5 rounded-r-full text-[10px] font-bold uppercase tracking-widest hover:bg-[var(--foreground)] transition shadow-sm"
+                disabled={newsletterLoading}
+                className="bg-[var(--accent)] text-[var(--background)] px-4 py-2.5 rounded-r-full text-[10px] font-bold uppercase tracking-widest hover:bg-[var(--foreground)] transition shadow-sm disabled:opacity-60"
               >
-                Join
+                {newsletterLoading ? "..." : "Join"}
               </button>
             </form>
           </div>

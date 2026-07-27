@@ -61,11 +61,10 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.path}
-                className={`text-[11px] font-bold uppercase tracking-widest transition-colors duration-150 ${
-                  isActive
+                className={`text-[11px] font-bold uppercase tracking-widest transition-colors duration-150 ${isActive
                     ? "text-[var(--accent)]"
                     : "text-[var(--muted)] hover:text-[var(--foreground)]"
-                }`}
+                  }`}
                 style={isActive ? { textShadow: "0 0 8px var(--accent-glow)" } : {}}
               >
                 {link.name}
@@ -111,9 +110,9 @@ export default function Navbar() {
             className="relative flex items-center justify-center w-9 h-9 rounded-full hover:bg-black/10 text-[var(--foreground)] transition"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
-              <line x1="3" y1="6" x2="21" y2="6"/>
-              <path d="M16 10a4 4 0 0 1-8 0"/>
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
             {totalItems > 0 && (
               <span className="absolute top-0 right-0 w-4 h-4 flex items-center justify-center text-[10px] font-bold text-[var(--background)] bg-[var(--accent)] rounded-full shadow-[0_0_8px_var(--accent-glow)]">
@@ -146,11 +145,10 @@ export default function Navbar() {
                 <button
                   key={link.name}
                   onClick={() => handleMobileNav(link.path)}
-                  className={`text-left px-3 py-3 rounded-lg text-[13px] font-bold uppercase tracking-widest transition-colors ${
-                    isActive
+                  className={`text-left px-3 py-3 rounded-lg text-[13px] font-bold uppercase tracking-widest transition-colors ${isActive
                       ? "bg-[var(--accent)]/10 text-[var(--accent)]"
                       : "text-[var(--muted)] hover:bg-black/5 hover:text-[var(--foreground)]"
-                  }`}
+                    }`}
                 >
                   {link.name}
                 </button>
