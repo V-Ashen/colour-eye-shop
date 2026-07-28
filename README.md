@@ -83,6 +83,14 @@ colour-eye-shop/
   - **Level 0 (Master Admin)**: Full system control, role creation, and permission configuration.
   - **Level 1 (Admin)** & **Level 2 (Staff)**: Granular permission checking (e.g., `view dashboard`, `manage orders`, `manage products`, `manage staff`, `manage roles`, `view messages`).
 
+### 8. 📧 Integrated Newsletter & Marketing System
+- Storefront footer includes a subscription form directly hooked to Firebase, with duplicate-email prevention.
+- Dedicated `/newsletter` admin dashboard for managing subscribers, tracking signups, and exporting CSV data.
+
+### 9. 🚚 Built-In Order Tracking & Account Management
+- Dedicated `/track-order` route allowing guest and authenticated users to check their order progress dynamically.
+- Authenticated users gain access to a `/profile` page with comprehensive order history and status badge updates.
+
 ---
 
 ## 💻 Local Development Setup
