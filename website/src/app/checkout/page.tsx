@@ -13,7 +13,7 @@ import { toast } from "react-hot-toast";
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { user } = useAuthStore();
+  const { user, setAuthModalOpen } = useAuthStore();
   const { cart, cartTotal, deliveryCharge, grandTotal, clearCart } = useCartStore();
 
   // --- Shipping & Guest States ---
@@ -212,6 +212,28 @@ export default function CheckoutPage() {
               <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-1">Step 1</p>
               <h2 className="text-xl font-semibold text-[var(--foreground)] tracking-wide mb-6" style={{ fontFamily: "var(--font-serif)" }}>Delivery Details</h2>
 
+              {/* RETURNING CUSTOMER BANNER */}
+              {!user && (
+                <div className="mb-6 bg-[var(--accent)]/5 border border-[var(--accent)]/20 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[var(--accent)]/10 flex items-center justify-center shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--accent)]"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-[var(--foreground)]">Returning customer?</p>
+                      <p className="text-xs text-[var(--muted)] mt-0.5">Login to checkout faster and track your order.</p>
+                    </div>
+                  </div>
+                  <button 
+                    type="button" 
+                    onClick={() => setAuthModalOpen(true)} 
+                    className="text-[10px] font-bold uppercase tracking-widest bg-[var(--accent)] text-[var(--background)] px-5 py-2.5 rounded-lg hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all shadow-sm shrink-0 w-full sm:w-auto"
+                  >
+                    Login Now
+                  </button>
+                </div>
+              )}
+
               <form onSubmit={handleCheckout} className="space-y-4">
                 
                 {/* RESTORED: Email Field for guests/receipts */}
@@ -227,7 +249,7 @@ export default function CheckoutPage() {
 
                 <div>
                   <label className="block text-[10px] font-semibold tracking-widest uppercase text-[var(--muted)] mb-1.5">Full Name</label>
-                  <input required value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="DN Customer" className="w-full border border-[var(--border)] bg-transparent rounded-xl px-4 py-3 text-sm text-[var(--foreground)] placeholder-[var(--muted)] focus:outline-none focus:border-[var(--accent)] transition-colors duration-200" />
+                  <input required value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="your name" className="w-full border border-[var(--border)] bg-transparent rounded-xl px-4 py-3 text-sm text-[var(--foreground)] placeholder-[var(--muted)] focus:outline-none focus:border-[var(--accent)] transition-colors duration-200" />
                 </div>
 
                 <div>
@@ -348,8 +370,8 @@ export default function CheckoutPage() {
                     <p className="font-bold text-[var(--foreground)] text-sm mb-1">Colour Eye Bank Details:</p>
                     <p><strong>Bank:</strong> Commercial Bank of Ceylon</p>
                     <p><strong>Branch:</strong> Mirihana Branch</p>
-                    <p><strong>Account Name:</strong> D. N. Accessories (Pvt) Ltd</p>
-                    <p><strong>Account Number:</strong> 811061864234</p>
+                    <p><strong>Account Name:</strong> Colour Eye (Pvt) Ltd</p>
+                    <p><strong>Account Number:</strong> 123451864234</p>
                   </div>
                   <div className="border border-dashed border-[var(--border)] rounded-xl p-4 bg-transparent flex flex-col items-center justify-center hover:border-[var(--accent)] transition-colors cursor-pointer group">
                     <input type="file" id="receipt" className="hidden" accept="image/*" onChange={(e) => setReceiptFile(e.target.files ? e.target.files[0] : null)} />
