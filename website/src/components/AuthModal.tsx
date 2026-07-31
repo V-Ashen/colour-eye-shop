@@ -37,6 +37,7 @@ export default function AuthModal() {
       const result = await signInWithPopup(auth, provider);
       await saveUserToDB(result.user);
       toast.success("Successfully logged in!");
+      setAuthModalOpen(false);
     } catch (error) {
       toast.error("Authentication failed!");
     } finally {
@@ -65,7 +66,7 @@ export default function AuthModal() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md px-4">
-      <div className="glass-glow bg-[var(--background)] w-full max-w-sm rounded-2xl border border-[var(--border)] overflow-hidden shadow-2xl">
+      <div className="bg-[var(--background)] w-full max-w-sm rounded-2xl border border-[var(--border)] overflow-hidden shadow-2xl">
 
         {/* Header band */}
         <div className="bg-black/5 border-b border-[var(--border)] px-8 py-6 relative">

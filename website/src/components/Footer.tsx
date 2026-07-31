@@ -41,7 +41,7 @@ export default function Footer() {
     <footer className="bg-[var(--background)] text-[var(--muted)] py-16 px-4 sm:px-6 lg:px-8 border-t border-[var(--border)]">
       <div className="max-w-7xl mx-auto">
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
 
           {/* Brand */}
           <div className="md:col-span-1">
@@ -62,7 +62,7 @@ export default function Footer() {
                 Colour Eye
               </span>
             </div>
-            <p className="text-xs text-[var(--muted)] leading-relaxed max-w-[200px]">
+            <p className="text-xs text-slate-600 leading-relaxed max-w-[200px]">
               Your destination for trendy and aesthetic fashion jewelry.
             </p>
 
@@ -114,7 +114,30 @@ export default function Footer() {
                 <li key={label}>
                   <Link
                     href={href}
-                    className="text-xs text-[var(--muted)] hover:text-[var(--accent)] tracking-wide transition-colors duration-150"
+                    className="text-xs text-slate-600 hover:text-[var(--accent)] tracking-wide transition-colors duration-150"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Customer Service */}
+          <div>
+            <h3 className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-4" style={{ textShadow: "0 0 8px var(--accent-glow)" }}>
+              Customer Service
+            </h3>
+            <ul className="space-y-2.5">
+              {[
+                { label: "FAQ", href: "/faq" },
+                { label: "Shipping & Returns", href: "/shipping-and-returns" },
+                { label: "My Profile", href: "/profile" },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <Link
+                    href={href}
+                    className="text-xs text-slate-600 hover:text-[var(--accent)] tracking-wide transition-colors duration-150"
                   >
                     {label}
                   </Link>
@@ -129,14 +152,14 @@ export default function Footer() {
               Contact Us
             </h3>
             <address className="not-italic space-y-3">
-              <p className="text-xs text-[var(--muted)] leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 158, Rajamahavihara Rd,<br />
                 Mirihana, Kotte,<br />
                 Sri Lanka 10100
               </p>
               <a
                 href="mailto:chamudigunawardana071@gmail.com"
-                className="text-xs text-[var(--muted)] hover:text-[var(--accent)] tracking-wide transition-colors duration-150 block break-all"
+                className="text-xs text-slate-600 hover:text-[var(--accent)] tracking-wide transition-colors duration-150 block break-all"
               >
                 chamudigunawardana071@gmail.com
               </a>
@@ -148,7 +171,7 @@ export default function Footer() {
             <h3 className="text-[10px] font-semibold tracking-[0.2em] uppercase text-[var(--accent)] mb-4" style={{ textShadow: "0 0 8px var(--accent-glow)" }}>
               Join Our Newsletter
             </h3>
-            <p className="text-xs text-[var(--muted)] leading-relaxed mb-4">
+            <p className="text-xs text-slate-600 leading-relaxed mb-4">
               Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.
             </p>
             <form
@@ -199,11 +222,11 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-[var(--border)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[11px] text-[var(--muted)] opacity-70 tracking-wide">
+          <p className="text-[11px] text-slate-500 tracking-wide">
             &copy; {currentYear} Colour Eye. All rights reserved.
           </p>
           <div className="flex gap-4 items-center">
-            <span className="text-[11px] text-[var(--muted)] opacity-50 tracking-wide">
+            <span className="text-[11px] text-slate-500 tracking-wide">
               Crafted with care in Sri Lanka
             </span>
           </div>

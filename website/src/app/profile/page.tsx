@@ -18,7 +18,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (!user) {
-      router.push("/");
+      setLoading(false);
       return;
     }
 
@@ -45,10 +45,36 @@ export default function ProfilePage() {
     fetchOrders();
   }, [user, router]);
 
-  if (!user || loading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-[var(--background)] flex items-center justify-center">
         <div className="text-[var(--muted)] animate-pulse tracking-widest text-xs uppercase font-bold">Loading Profile...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    const { setAuthModalOpen } = useAuthStore.getState();
+    return (
+      <div className="min-h-screen bg-[var(--background)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full bg-black/5 border border-[var(--border)] rounded-3xl p-10 text-center flex flex-col items-center">
+          <div className="w-16 h-16 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] flex items-center justify-center mb-6 shadow-sm border border-[var(--border)]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h2 className="text-2xl font-semibold text-[var(--foreground)] mb-3" style={{ fontFamily: "var(--font-serif)" }}>Authentication Required</h2>
+          <p className="text-sm text-[var(--muted)] mb-8 leading-relaxed">
+            Please log in or create an account to view your profile, track your orders, and manage your settings.
+          </p>
+          <button 
+            onClick={() => setAuthModalOpen(true)}
+            className="w-full bg-[var(--accent)] text-[var(--background)] px-6 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[var(--foreground)] transition-all shadow-[0_0_15px_var(--accent-glow)]"
+          >
+            Log In / Sign Up
+          </button>
+          <Link href="/" className="mt-6 text-xs text-[var(--muted)] hover:text-[var(--foreground)] tracking-wide transition-colors">
+            ← Return to Store
+          </Link>
+        </div>
       </div>
     );
   }
