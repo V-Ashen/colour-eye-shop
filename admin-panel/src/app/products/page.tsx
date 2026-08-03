@@ -7,6 +7,7 @@ import { db } from "@/lib/firebase";
 import { useAdminAuthStore } from "@/store/adminAuthStore";
 import { Edit, Save, X, Trash2, Plus, ToggleLeft, ToggleRight, Star, Search, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import ConfirmModal from "@/components/ConfirmModal";
 
 interface Product {
   id: string;
@@ -58,6 +59,7 @@ export default function ManageProductsPage() {
   const [addingCategory, setAddingCategory] = useState(false);
   
   const [editHasFrameSizes, setEditHasFrameSizes] = useState(false);
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, title: "", message: "", onConfirm: () => {} });
   const [editFrameSizes, setEditFrameSizes] = useState<{size: string, price: number}[]>([]);
 
   useEffect(() => {
@@ -110,31 +112,36 @@ export default function ManageProductsPage() {
     if (activeCategory === "All") return toast.error("Please select a specific category first to bulk update.");
     if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return toast.error("Permission Denied.");
     
-    if (confirm(`Are you sure you want to mark ALL items in "${activeCategory}" as ${newStatus ? 'Active' : 'Inactive'}?`)) {
-      setLoading(true);
-      try {
-        const batch = writeBatch(db);
-        const productsToUpdate = products.filter(p => p.category?.toLowerCase() === activeCategory.toLowerCase());
-        
-        productsToUpdate.forEach(p => {
-          const pRef = doc(db, "products", p.id);
-          batch.update(pRef, { isActive: newStatus });
-        });
+    setConfirmModal({
+      isOpen: true,
+      title: "Bulk Status Update",
+      message: `Are you sure you want to mark ALL items in "${activeCategory}" as ${newStatus ? 'Active' : 'Inactive'}?`,
+      onConfirm: async () => {
+        setLoading(true);
+        try {
+          const batch = writeBatch(db);
+          const productsToUpdate = products.filter(p => p.category?.toLowerCase() === activeCategory.toLowerCase());
+          
+          productsToUpdate.forEach(p => {
+            const pRef = doc(db, "products", p.id);
+            batch.update(pRef, { isActive: newStatus });
+          });
 
-        await batch.commit(); // Execute all updates instantly
-        
-        // Update local state
-        setProducts(prev => prev.map(p => 
-          p.category?.toLowerCase() === activeCategory.toLowerCase() ? { ...p, isActive: newStatus } : p
-        ));
-        toast.success(`Bulk update complete!`);
-      } catch (error) {
-        console.error("Bulk update failed:", error);
-        toast.error("Bulk update failed.");
-      } finally {
-        setLoading(false);
+          await batch.commit(); // Execute all updates instantly
+          
+          // Update local state
+          setProducts(prev => prev.map(p => 
+            p.category?.toLowerCase() === activeCategory.toLowerCase() ? { ...p, isActive: newStatus } : p
+          ));
+          toast.success(`Bulk update complete!`);
+        } catch (error) {
+          console.error("Bulk update failed:", error);
+          toast.error("Bulk update failed.");
+        } finally {
+          setLoading(false);
+        }
       }
-    }
+    });
   };
 
   // --- Toggle Handlers ---
@@ -202,17 +209,22 @@ export default function ManageProductsPage() {
 
   const handleDeleteProduct = async (productId: string, productName: string) => {
     if (roleCode !== 0 && (roleCode !== 1 || !hasPermission("manage products"))) return toast.error("Permission Denied.");
-    if (confirm(`Are you sure you want to delete "${productName}"?`)) {
-      setLoading(true);
-      try {
-        await deleteDoc(doc(db, "products", productId));
-        setProducts(prev => prev.filter(p => p.id !== productId));
-      } catch (error) {
-        toast.error("Failed to delete product.");
-      } finally {
-        setLoading(false);
+    setConfirmModal({
+      isOpen: true,
+      title: "Delete Product",
+      message: `Are you sure you want to delete "${productName}"?`,
+      onConfirm: async () => {
+        setLoading(true);
+        try {
+          await deleteDoc(doc(db, "products", productId));
+          setProducts(prev => prev.filter(p => p.id !== productId));
+        } catch (error) {
+          toast.error("Failed to delete product.");
+        } finally {
+          setLoading(false);
+        }
       }
-    }
+    });
   };
 
   if (roleCode !== 0 && !hasPermission("manage products")) {
@@ -487,6 +499,14 @@ export default function ManageProductsPage() {
           </div>
         </div>
       )}
+      <ConfirmModal
+        isOpen={confirmModal.isOpen}
+        title={confirmModal.title}
+        message={confirmModal.message}
+        onConfirm={confirmModal.onConfirm}
+        onCancel={() => setConfirmModal({ ...confirmModal, isOpen: false })}
+        confirmText="Confirm"
+      />
     </div>
   );
 }

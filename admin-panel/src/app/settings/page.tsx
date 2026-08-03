@@ -6,10 +6,13 @@ import { db } from "@/lib/firebase";
 import { Save, Plus, Trash2, Settings, ListTree, Image as ImageIcon } from "lucide-react";
 import { toast } from "react-hot-toast";
 import ImageUpload from "@/components/ImageUpload";
+import ConfirmModal from "@/components/ConfirmModal";
 
 export default function SettingsPage() {
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
+
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, title: "", message: "", onConfirm: () => {} });
 
   // Global Settings state
   const [metaPixel, setMetaPixel] = useState("");
@@ -107,14 +110,20 @@ export default function SettingsPage() {
   };
 
   const handleDeleteCategory = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this category?")) return;
-    try {
-      await deleteDoc(doc(db, "categories", id));
-      setCategories(categories.filter(c => c.id !== id));
-      toast.success("Category deleted!");
-    } catch (error: any) {
-      toast.error("Failed to delete category: " + error.message);
-    }
+    setConfirmModal({
+      isOpen: true,
+      title: "Delete Category",
+      message: "Are you sure you want to delete this category? This action cannot be undone.",
+      onConfirm: async () => {
+        try {
+          await deleteDoc(doc(db, "categories", id));
+          setCategories(categories.filter(c => c.id !== id));
+          toast.success("Category deleted!");
+        } catch (error: any) {
+          toast.error("Failed to delete category: " + error.message);
+        }
+      }
+    });
   };
 
   const handleAddGalleryImage = async (e: React.FormEvent) => {
@@ -142,14 +151,20 @@ export default function SettingsPage() {
   };
 
   const handleDeleteGalleryImage = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this image?")) return;
-    try {
-      await deleteDoc(doc(db, "gallery", id));
-      setGalleryImages(galleryImages.filter(img => img.id !== id));
-      toast.success("Image deleted from gallery!");
-    } catch (error: any) {
-      toast.error("Failed to delete image: " + error.message);
-    }
+    setConfirmModal({
+      isOpen: true,
+      title: "Delete Image",
+      message: "Are you sure you want to delete this image from the gallery?",
+      onConfirm: async () => {
+        try {
+          await deleteDoc(doc(db, "gallery", id));
+          setGalleryImages(galleryImages.filter(img => img.id !== id));
+          toast.success("Image deleted from gallery!");
+        } catch (error: any) {
+          toast.error("Failed to delete image: " + error.message);
+        }
+      }
+    });
   };
 
   if (fetching) return <div className="p-8 text-white">Loading Settings...</div>;
@@ -157,8 +172,8 @@ export default function SettingsPage() {
   return (
     <div className="p-8 max-w-5xl mx-auto space-y-12">
       <div>
-        <h1 className="text-3xl font-bold text-white tracking-tight" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>Platform Settings</h1>
-        <p className="text-slate-400 mt-2">Manage tracking pixels, social links, and product categories.</p>
+        <h1 className="text-3xl font-bold text-[#1C1C1E] tracking-tight" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}>Platform Settings</h1>
+        <p className="text-slate-500 mt-2">Manage tracking pixels, social links, and product categories.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -380,6 +395,14 @@ export default function SettingsPage() {
         </div>
 
       </div>
+      <ConfirmModal
+        isOpen={confirmModal.isOpen}
+        title={confirmModal.title}
+        message={confirmModal.message}
+        onConfirm={confirmModal.onConfirm}
+        onCancel={() => setConfirmModal({ ...confirmModal, isOpen: false })}
+        confirmText="Delete"
+      />
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { getAuth, createUserWithEmailAndPassword, updatePassword, updateEmail } 
 import { db } from "@/lib/firebase";
 import { useAdminAuthStore } from "@/store/adminAuthStore"; // Added
 import { Edit, Trash2 } from "lucide-react";
+import ConfirmModal from "@/components/ConfirmModal";
 
 // Initialize a secondary Firebase app for creating users without logging out the current admin
 const firebaseConfig = {
@@ -33,7 +34,7 @@ export default function ManageStaffPage() {
   const [password, setPassword] = useState(""); // Only used for adding new or resetting for existing
   const [selectedRoleName, setSelectedRoleName] = useState(""); // Stores role name (e.g., "Admin", "Cashier")
   const [loading, setLoading] = useState(false);
-
+  const [confirmModal, setConfirmModal] = useState({ isOpen: false, title: "", message: "", onConfirm: () => {} });
   useEffect(() => {
     fetchData();
   }, []);
@@ -172,18 +173,22 @@ export default function ManageStaffPage() {
       return;
     }
 
-    if(confirm(`Are you sure you want to remove ${userToDelete.displayName} (${userToDelete.roleName})? This cannot be undone.`)) {
-      setLoading(true);
-      try {
-        await deleteDoc(doc(db, "users", userToDelete.id));
-        // You would also delete the user from Firebase Auth here in a full system
-        toast.error("Staff Member Removed!");
-        fetchData();
-      } catch (error: any) {
-        toast.error("Error deleting staff: " + error.message);
+    setConfirmModal({
+      isOpen: true,
+      title: "Remove Staff Member",
+      message: `Are you sure you want to remove ${userToDelete.displayName} (${userToDelete.roleName})? This cannot be undone.`,
+      onConfirm: async () => {
+        setLoading(true);
+        try {
+          await deleteDoc(doc(db, "users", userToDelete.id));
+          toast.success("Staff Member Removed!");
+          fetchData();
+        } catch (error: any) {
+          toast.error("Error deleting staff: " + error.message);
+        }
+        setLoading(false);
       }
-      setLoading(false);
-    }
+    });
   };
 
   // If the current user doesn't have manage staff permission AND isn't Master Admin
@@ -290,6 +295,14 @@ export default function ManageStaffPage() {
           </table>
         </div>
       </div>
+      <ConfirmModal
+        isOpen={confirmModal.isOpen}
+        title={confirmModal.title}
+        message={confirmModal.message}
+        onConfirm={confirmModal.onConfirm}
+        onCancel={() => setConfirmModal({ ...confirmModal, isOpen: false })}
+        confirmText="Remove Staff"
+      />
     </div>
   );
 }
