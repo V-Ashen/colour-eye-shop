@@ -133,7 +133,7 @@ export default function ShopPage() {
   if (loading) return <div className="min-h-screen bg-[var(--background)] flex items-center justify-center text-[var(--muted)] font-medium tracking-widest uppercase text-xs">Loading Collections...</div>;
 
   return (
-    <div className="min-h-screen bg-[var(--background)] pt-20 pb-20">
+    <div className="min-h-screen bg-[var(--background)] pb-20">
       
       {/* Hero Banner */}
       <div className="glass-glow text-center py-16 px-4 mb-8 md:mb-12 max-w-7xl mx-auto rounded-2xl border border-[var(--border)] relative overflow-hidden">
